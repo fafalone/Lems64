@@ -1,5 +1,5 @@
 # Lems64
-64-bit compativle twinBASIC port of [Charles PV's Lems](https://github.com/Planet-Source-Code/carles-p-v-a-classic-one-and-sequel__1-61601)
+64-bit compativle twinBASIC port of [Carles PV's Lems](https://github.com/Planet-Source-Code/carles-p-v-a-classic-one-and-sequel__1-61601)
 
 This is currently an untested alpha version; mainly to share the source with a couple specific people, but anyone can play around with it.
 
