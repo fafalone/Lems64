@@ -25,3 +25,14 @@ Requires twinBASIC Beta 304 or newer to run and build without bugs.
 
 IMPORTANT: If you've been using it in previous versions, note that to fix the coloring issue with level previews, you'll need to delete the .bmp files in \LEVELS, which are cached versions.
 
+## Game files required!
+
+The GameBase folder in the repository contains all the game files-- graphics, sounds, levels, etc. When you've picked a version and are ready to open/run it, it should be in the same folder as the contents of GameBase. It uses ini files and cache files, so it's not advisable to put multiple versions in the same folder, which is why the game files are stored separately here. 
+
+Download the Releases for a ready-to-go directory setup; they include both the .twinproj source files and compiled versions of each.
+
+---
+
+Questions, comments, bugs? Don't hesitate to create an issue!
+
+**Enjoy!**
