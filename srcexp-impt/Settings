@@ -1,0 +1,65 @@
+{
+	"configuration.inherits": "Defaults",
+	"debugger.runtimeCommandLineArguments": "",
+	"project.appHelpFile": "",
+	"project.appTitle": "Lems",
+	"project.autoPrettify": true,
+	"project.buildPath": "${SourcePath}\\${ProjectName}_${Architecture}.${FileExtension}",
+	"project.buildType": "Standard EXE",
+	"project.description": "",
+	"project.exportPath": "${SourcePath}\\srcexp-impt",
+	"project.exportPathIsV2": true,
+	"project.forceDpiAwarenessAtStartup": "NONE",
+	"project.id": "{DE29433D-B8C9-4DCC-8634-E73E69841CEF}",
+	"project.name": "Lems",
+	"project.optionExplicit": true,
+	"project.references": [
+		{
+			"id": "{F50B82D0-DCAB-43FE-9631-11959D4A4728}",
+			"isCompilerPackage": true,
+			"lcid": 0,
+			"licence": "MIT",
+			"name": "[COMPILER PACKAGE] WinNativeForms Package",
+			"path32": "",
+			"path64": "",
+			"publisher": "TWINBASIC-COMPILER",
+			"versionBuild": 0,
+			"versionMajor": 0,
+			"versionMinor": 0,
+			"versionRevision": 31
+		},
+		{
+			"id": "{00020430-0000-0000-C000-000000000046}",
+			"lcid": 0,
+			"name": "OLE Automation",
+			"path32": "\\\\?\\C:\\Windows\\SysWOW64\\stdole2.tlb",
+			"path64": "\\\\?\\C:\\Windows\\SysWOW64\\stdole2.tlb",
+			"versionMajor": 2,
+			"versionMinor": 0
+		},
+		{
+			"id": "{6B7E6392-850A-101B-AFC0-4210102A8DA7}",
+			"lcid": 0,
+			"name": "comctl32.ocx",
+			"path32": "comctl32.ocx",
+			"path64": "comctl32.ocx",
+			"versionMajor": 1,
+			"versionMinor": 3
+		}
+	],
+	"project.settingsVersion": 1,
+	"project.startupObject": "fLems",
+	"project.versionComments": "Enjoy!",
+	"project.versionCompanyName": "Microsoft",
+	"project.versionFileDescription": "Remake of Lemmings",
+	"project.versionLegalCopyright": "Carles P.V. © 2005-2011",
+	"project.versionMajor": 1,
+	"project.versionMinor": 5,
+	"project.versionProductName": "Lems",
+	"project.versionRevision": 13,
+	"project.warnings": {
+		"errors": [],
+		"ignored": []
+	},
+	"runtime.useUnicodeStandardLibrary": true
+}

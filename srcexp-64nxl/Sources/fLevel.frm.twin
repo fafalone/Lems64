@@ -1,0 +1,263 @@
+[ FormDesignerId ("459CCBF2-2927-4B0E-9725-58870AC1CBCD") ]
+[ ClassId ("A7B6512E-3879-4E06-877A-57DE084B7C0E") ]
+[ InterfaceId ("93E803AE-7070-4FD8-BFA5-EAC192FF6CF3") ]
+[ EventInterfaceId ("B5F4F4A9-FE24-45D3-996D-03E208194D7B") ]
+Class fLevel
+    Attribute VB_Name = "fLevel"
+    Attribute VB_GlobalNameSpace = False
+    Attribute VB_Creatable = False
+    Attribute VB_PredeclaredId = True
+    Attribute VB_Exposed = False
+    Option Explicit
+    
+    Private Const TV_FIRST         As Long = &H1100
+    Private Const TVM_SETBKCOLOR   As Long = TV_FIRST + 29
+    Private Const TVM_SETTEXTCOLOR As Long = TV_FIRST + 30
+    Private Const TVM_SETIMAGELIST As Long = TV_FIRST + 9
+
+    Private Declare PtrSafe Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal hWnd As LongPtr, ByVal wMsg As Long, ByVal wParam As LongPtr, lParam As Any) As LongPtr
+
+    
+    
+    '========================================================================================
+    ' Main
+    '========================================================================================
+    
+    Private Sub Form_Load()
+    
+        '-- No icon
+        Set Me.Icon = Nothing
+        
+        '-- Form cursor
+        Set Me.MouseIcon = VB.LoadResPicture("CUR_HAND", vbResCursor)
+        
+        '-- Image-list images
+        Call Me.ilLevels.ListImages.Add(, , VB.LoadPicture(AppPath & "RES\Folder_blue.gif"))
+        Call Me.ilLevels.ListImages.Add(, , VB.LoadPicture(AppPath & "RES\Folder_blue.gif"))
+        Call Me.ilLevels.ListImages.Add(, , VB.LoadPicture(AppPath & "RES\Checkbox_unchecked.gif"))
+        Call Me.ilLevels.ListImages.Add(, , VB.LoadPicture(AppPath & "RES\Checkbox_checked.gif"))
+        
+        '-- Change treeview colors (masking problems with imagelist)
+        Call SendMessage(Me.tvLevels.hWnd, TVM_SETBKCOLOR, 0, ByVal vbWhite)
+        Call SendMessage(Me.tvLevels.hWnd, TVM_SETTEXTCOLOR, 0, ByVal vbBlack)
+        Call SendMessage(Me.tvLevels.hWnd, TVM_SETIMAGELIST, 0, ByVal ilLevels.hImageList)
+        
+        '-- Level preview drawing offsets
+        ucThumbnail.xOffset = 1
+        ucThumbnail.yOffset = 1
+        
+        '-- Skill images
+        Set imgSkill(0) = VB.LoadPicture(AppPath & "RES\Climber.ico")
+        Set imgSkill(1) = VB.LoadPicture(AppPath & "RES\Floater.ico")
+        Set imgSkill(2) = VB.LoadPicture(AppPath & "RES\Bomber.ico")
+        Set imgSkill(3) = VB.LoadPicture(AppPath & "RES\Blocker.ico")
+        Set imgSkill(4) = VB.LoadPicture(AppPath & "RES\Builder.ico")
+        Set imgSkill(5) = VB.LoadPicture(AppPath & "RES\Basher.ico")
+        Set imgSkill(6) = VB.LoadPicture(AppPath & "RES\Miner.ico")
+        Set imgSkill(7) = VB.LoadPicture(AppPath & "RES\Digger.ico")
+        
+        '-- Fill treeview with all levels
+        Screen.MousePointer = vbHourglass
+        Call pvShowAllLevels
+        Screen.MousePointer = vbDefault
+        
+        '-- Select current level ID
+        Call pvSelectCurrent
+    End Sub
+    
+    ' Private Sub ZoomPicture(pct As PictureBox, zoom As Double)
+    '     With pct
+    '         .AutoRedraw = True
+    '         .Width = .Width * zoom
+    '         .Height = .Height * zoom
+    '         .PaintPicture .Picture, 0, 0, .ScaleWidth, .ScaleHeight
+    '         .Refresh
+    '     End With
+    ' End Sub
+    
+    Private Sub tvLevels_NodeClick(ByVal Node As WinNativeCommonCtls.Node)
+        
+        If (Node.Children) Then
+        
+            '-- Single click expands roots
+            If (Node.Expanded = False) Then
+                Node.Expanded = True
+            End If
+            
+            '-- Root node: no level selected
+            Call ucThumbnail.DIB.Destroy
+            Call ucThumbnail.Refresh
+            lblLemsToLetOutVal = ""
+            lblLemsToBeSavedVal = ""
+            lblPlayingTimeVal = ""
+            lblSkill(0) = ""
+            lblSkill(1) = ""
+            lblSkill(2) = ""
+            lblSkill(3) = ""
+            lblSkill(4) = ""
+            lblSkill(5) = ""
+            lblSkill(6) = ""
+            lblSkill(7) = ""
+            
+          Else
+            '-- Extract level key
+            g_nLevelID = Val(Mid$(tvLevels.SelectedItem.Key, 2))
+            Debug.Print tvLevels.SelectedItem.Index & "->" & Mid$(tvLevels.SelectedItem.Key, 2) & " ==" & g_nLevelID
+            '-- Load/create level thumbnail
+            Call GetLevelThumbnail(ucThumbnail.DIB)
+            Call ucThumbnail.Refresh
+            
+            '-- Get level info
+            Call LoadLevelInfo(g_nLevelID)
+            With g_uLevel
+                lblLemsToLetOutVal = .LemsToLetOut
+                lblLemsToBeSavedVal = .LemsToBeSaved
+                lblPlayingTimeVal = .PlayingTime & "'"
+                lblSkill(0) = IIf(.MaxClimbers, .MaxClimbers, "-")
+                lblSkill(1) = IIf(.MaxFloaters, .MaxFloaters, "-")
+                lblSkill(2) = IIf(.MaxBombers, .MaxBombers, "-")
+                lblSkill(3) = IIf(.MaxBlockers, .MaxBlockers, "-")
+                lblSkill(4) = IIf(.MaxBuilders, .MaxBuilders, "-")
+                lblSkill(5) = IIf(.MaxBashers, .MaxBashers, "-")
+                lblSkill(6) = IIf(.MaxMiners, .MaxMiners, "-")
+                lblSkill(7) = IIf(.MaxDiggers, .MaxDiggers, "-")
+            End With
+        End If
+    End Sub
+    
+    Private Sub cmdOK_Click()
+    
+        '-- Is a valid node?
+        If (tvLevels.SelectedItem.Children = 0) Then
+            '-- Yes
+            Call VB.Unload(Me)
+          Else
+            '-- No
+            Call VBA.MsgBox( _
+                 "No level has been selected." & vbCrLf & vbCrLf & "Please, select a valid level.", _
+                 vbExclamation _
+                 )
+        End If
+    End Sub
+    
+    Private Sub cmdCancel_Click()
+        
+        '-- Just exit
+        Call VB.Unload(Me)
+    End Sub
+    
+    '========================================================================================
+    ' Private
+    '========================================================================================
+    
+    Private Sub pvShowAllLevels()
+        
+      Dim nRatings   As Integer
+      Dim sPath      As String
+      Dim r          As Integer
+      Dim l          As Integer
+      Dim lID        As Integer
+      Dim s          As String
+      Dim bDone      As Boolean
+      
+        '-- Available ratings
+        Select Case g_eGamePack
+            Case [ePackLems]
+                Call tvLevels.Nodes.Add(, , "Fun", "Fun", 1)
+                Call tvLevels.Nodes.Add(, , "Tricky", "Tricky", 1)
+                Call tvLevels.Nodes.Add(, , "Taxing", "Taxing", 1)
+                Call tvLevels.Nodes.Add(, , "Mayhem", "Mayhem", 1)
+                nRatings = 4
+            Case [ePackOhNoMoreLems]
+                Call tvLevels.Nodes.Add(, , "Tame", "Tame", 1)
+                Call tvLevels.Nodes.Add(, , "Crazy", "Crazy", 1)
+                Call tvLevels.Nodes.Add(, , "Wild", "Wild", 1)
+                Call tvLevels.Nodes.Add(, , "Wicked", "Wicked", 1)
+                Call tvLevels.Nodes.Add(, , "Havoc", "Havoc", 1)
+                nRatings = 5
+            Case [ePackCustom]
+                Call tvLevels.Nodes.Add(, , "Custom", "Custom", 2)
+        End Select
+        
+        '-- Load levels...
+        
+        sPath = AppPath & "LEVELS\"
+        
+        If (g_eGamePack = [ePackCustom]) Then
+            
+            '-- Search levels...
+            For lID = g_eGamePack * 1000 To g_eGamePack * 1000 + 999
+                
+                '-- Level ID
+                s = Format$(lID, "0000")
+                
+                '-- Exists?
+                If (FileExists(sPath & s & ".dat")) Then
+                
+                    '-- Done?
+                    bDone = IsLevelDone(Val(s))
+                    
+                    '-- Add to list
+                    Call LoadLevelTitle(Val(s))
+                    Call tvLevels.Nodes.Add(r + 1, tvwChild, _
+                         "k" & s, Trim$(g_uLevel.Title), _
+                         IIf(bDone, 4, 3) _
+                         )
+                End If
+            Next lID
+        
+          Else
+        
+            For r = 0 To nRatings
+                
+                '-- Starting level
+                lID = g_eGamePack * 1000 + r * 100
+                l = 0
+                
+                '-- Get all levels
+                Do While FileExists(sPath & Format$(lID, "0000") & ".dat")
+                    
+                    '-- Level ID
+                    s = Format$(lID, "0000")
+                    l = l + 1
+                    
+                    '-- Done?
+                    bDone = IsLevelDone(Val(s))
+                    
+                    '-- Add to list
+                    Call LoadLevelTitle(Val(s))
+                    Call tvLevels.Nodes.Add(r + 1, tvwChild, "k" & s, _
+                         l & ". " & Trim$(g_uLevel.Title), _
+                         IIf(bDone, 4, 3) _
+                         )
+                    
+                    '-- Last done?
+                    If (bDone) Then
+                        lID = lID + 1
+                      Else
+                        Exit Do
+                    End If
+                Loop
+            Next r
+        End If
+    End Sub
+    
+    Private Sub pvSelectCurrent()
+        
+      Dim sKey As String
+        
+        On Error GoTo errH
+        sKey = "k" & Format$(g_nLevelID, "0000")
+        With tvLevels
+            .Nodes(sKey).Selected = True
+            Call .Nodes(sKey).EnsureVisible
+            Call tvLevels_NodeClick(.Nodes(sKey))
+        End With
+    
+    errH:
+        On Error GoTo 0
+    End Sub
+
+    
+
+End Class

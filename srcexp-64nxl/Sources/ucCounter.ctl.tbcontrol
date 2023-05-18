@@ -1,0 +1,26 @@
+[
+   {
+      "ScaleWidth": 64,
+      "ScaleMode": 3,
+      "ScaleHeight": 32,
+      "ForeColor": 0,
+      "FontStrikethru": 0,
+      "FontItalic": 0,
+      "FontUnderline": 0,
+      "FontBold":true,
+      "FontCharset": 0,
+      "FontSize": 9,
+      "FontName": "Tahoma",
+      "ClipControls": 0,
+      "ClientWidth": 960,
+      "ClientTop": 0,
+      "ClientLeft": 0,
+      "ClientHeight": 480,
+      "CanGetFocus": 0,
+      "_clsid": "{33AD5010-6699-11CF-B70C-00AA0060D393}",
+      "FormDesignerId": "{4CFAB9C2-B838-41FD-9260-800F60639AE4}",
+      "Width":64,
+      "Height":32,
+      "Name":"ucCounter"
+   }
+]

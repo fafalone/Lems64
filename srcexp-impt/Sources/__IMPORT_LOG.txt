@@ -1,0 +1,42 @@
+
+Import from Visual Basic VBP file 'C:\vb6\LemmingsU\Lems.vbp'...
+   successfully set project.buildType to 'Standard EXE' at line #1
+   ***WARNING*** converted relative reference path from '..\..\Windows\SysWOW64\stdole2.tlb' to '\\?\C:\Windows\SysWOW64\stdole2.tlb' at line #2
+   successfully added project.reference 'OLE Automation' at line #2
+   successfully imported MODULE 'mLems.bas' at line #4
+   successfully imported MODULE 'mLevel.bas' at line #5
+   successfully imported CLASS 'cDIB08.cls' at line #6
+   successfully imported MODULE 'mMisc.bas' at line #8
+   successfully imported MODULE 'mLemsRenderer.bas' at line #9
+   successfully imported MODULE 'mTiming.bas' at line #10
+   successfully imported MODULE 'mSound.bas' at line #11
+   successfully imported MODULE 'mSettings.bas' at line #13
+   successfully imported MODULE 'mMusic.bas' at line #14
+   successfully imported MODULE 'mHook.bas' at line #15
+   successfully imported MODULE 'mINI.bas' at line #16
+   successfully imported MODULE 'mFullScreen.bas' at line #17
+   successfully imported MODULE 'mDialogColor.bas' at line #21
+   successfully added project.reference [COMPONENT] 'comctl32.ocx' at line #22
+   successfully imported RESOURCE FILE 'Lems.res' at line #23
+   successfully set project.startupObject to 'fLems' at line #25
+   successfully set project.appHelpFile to '' at line #26
+   successfully set project.appTitle to 'Lems' at line #27
+   successfully imported Command Line Arguments '' at line #29
+   successfully set project.name to 'Lems' at line #30
+   successfully set project.versionMajor to '1' at line #33
+   successfully set project.versionMinor to '5' at line #34
+   successfully set project.versionRevision to '13' at line #35
+   successfully set project.versionComments to 'Enjoy!' at line #38
+   successfully set project.versionCompanyName to 'Microsoft' at line #39
+   successfully set project.versionFileDescription to 'Remake of Lemmings' at line #40
+   successfully set project.versionLegalCopyright to 'Carles P.V. © 2005-2011' at line #41
+   successfully set project.versionProductName to 'Lems' at line #42
+   successfully imported USERCONTROL 'ucToolbar.ctl' at line #20
+   successfully imported USERCONTROL 'ucInfo.ctl' at line #19
+   successfully imported USERCONTROL 'ucCounter.ctl' at line #18
+   successfully imported FORM 'fLevel.frm' at line #12
+   successfully imported USERCONTROL 'ucScreen08.ctl' at line #7
+   successfully imported FORM 'fLems.frm' at line #3
+IMPORT FINISHED WITH 0 ERRORS/WARNINGS
+
+(you can delete this log file)

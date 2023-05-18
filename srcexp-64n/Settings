@@ -1,0 +1,71 @@
+{
+	"configuration.inherits": "Defaults",
+	"debugger.runtimeCommandLineArguments": "",
+	"project.appHelpFile": "",
+	"project.appTitle": "Lems",
+	"project.autoPrettify": true,
+	"project.buildPath": "${SourcePath}\\${ProjectName}_${Architecture}.${FileExtension}",
+	"project.buildType": "Standard EXE",
+	"project.description": "",
+	"project.exportPath": "${SourcePath}\\Lems_64_N",
+	"project.exportPathIsV2": true,
+	"project.forceDpiAwarenessAtStartup": "NONE",
+	"project.id": "{DE29433D-B8C9-4DCC-8634-E73E69841CEF}",
+	"project.name": "Lems",
+	"project.optionExplicit": true,
+	"project.references": [
+		{
+			"id": "{F50B82D0-DCAB-43FE-9631-11959D4A4728}",
+			"isCompilerPackage": true,
+			"lcid": 0,
+			"licence": "MIT",
+			"name": "[COMPILER PACKAGE] WinNativeForms Package",
+			"path32": "",
+			"path64": "",
+			"publisher": "TWINBASIC-COMPILER",
+			"versionBuild": 0,
+			"versionMajor": 0,
+			"versionMinor": 0,
+			"versionRevision": 31
+		},
+		{
+			"id": "{00020430-0000-0000-C000-000000000046}",
+			"lcid": 0,
+			"name": "OLE Automation",
+			"path32": "\\\\?\\C:\\Windows\\SysWOW64\\stdole2.tlb",
+			"path64": "\\\\?\\C:\\Windows\\SysWOW64\\stdole2.tlb",
+			"versionMajor": 2,
+			"versionMinor": 0
+		},
+		{
+			"id": "{D63CB78D-9F5B-42FE-B94C-A545F2B2BFC3}",
+			"isCompilerPackage": true,
+			"licence": "MIT",
+			"name": "[COMPILER PACKAGE] WinNativeCommonCtls Package",
+			"path32": "",
+			"path64": "",
+			"publisher": "TWINBASIC-COMPILER",
+			"symbolId": "WinNativeCommonCtls",
+			"versionBuild": 0,
+			"versionMajor": 0,
+			"versionMinor": 0,
+			"versionRevision": 1
+		}
+	],
+	"project.settingsVersion": 1,
+	"project.startupObject": "fLems",
+	"project.versionBuild": 2,
+	"project.versionComments": "Enjoy!",
+	"project.versionCompanyName": "Microsoft",
+	"project.versionFileDescription": "Remake of Lemmings",
+	"project.versionLegalCopyright": "Carles P.V. © 2005-2011",
+	"project.versionMajor": 1,
+	"project.versionMinor": 5,
+	"project.versionProductName": "Lems",
+	"project.versionRevision": 13,
+	"project.warnings": {
+		"errors": [],
+		"ignored": []
+	},
+	"runtime.useUnicodeStandardLibrary": true
+}

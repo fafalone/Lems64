@@ -1,0 +1,46 @@
+[
+   {
+      "ScaleWidth": 100,
+      "ScaleMode": 3,
+      "ScaleHeight": 100,
+      "LockControls": -1,
+      "ForeColor": -2147483628,
+      "ClipControls": 0,
+      "ClientWidth": 1500,
+      "ClientTop": 0,
+      "ClientLeft": 0,
+      "ClientHeight": 1500,
+      "CanGetFocus": 0,
+      "AutoRedraw": -1,
+      "Alignable": -1,
+      "FontName":"MS Sans Serif",
+      "_clsid": "{33AD5010-6699-11CF-B70C-00AA0060D393}",
+      "FormDesignerId": "{710CA562-020C-4A80-BBC1-95B02E412A5C}",
+      "Width":100,
+      "Height":100,
+      "Name":"ucToolbar",
+      "_children": [      {
+         "Width":20,
+         "Top":0,
+         "TabIndex": 0,
+         "Left":-25,
+         "Height":18,
+         "BackStyle": 0,
+         "FontName":"MS Sans Serif",
+         "_clsid": "{33AD4ED8-6699-11CF-B70C-00AA0060D393}",
+         "_className": "Label",
+         "Name":"lblTipRect"
+      },
+            {
+         "Top":0,
+         "Left":0,
+         "Interval": 50,
+         "Enabled": 0,
+         "FontName":"MS Sans Serif",
+         "_clsid": "{33AD4F28-6699-11CF-B70C-00AA0060D393}",
+         "_className": "Timer",
+         "Name":"tmrTip"
+      }
+      ]
+   }
+]
