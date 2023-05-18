@@ -4,9 +4,7 @@
 
 ### 64-bit compativle twinBASIC port of [Carles PV's Lems](https://github.com/Planet-Source-Code/carles-p-v-a-classic-one-and-sequel__1-61601)
 
-**Current status: twinBASIC Beta 304 fixes the few remaining minor bugs, so Lems/Lems64 is now working perfectly!**
-
-NOTE: While I've substituted the twinBASIC WinNativeCommonCtls TreeView for the comctl32.ocx TreeView, tB currently has no implementation of the ImageList control. 
+**Current status: twinBASIC Beta 304 fixes the few remaining minor bugs, so Lems/Lems64 is now working near perfectly!**
 
 ## Versions
 There are three versions currently in the repository to work around this:
@@ -25,11 +23,17 @@ Requires twinBASIC Beta 304 or newer to run and build without bugs.
 
 IMPORTANT: If you've been using it in previous versions, note that to fix the coloring issue with level previews, you'll need to delete the .bmp files in \LEVELS, which are cached versions.
 
-## Game files required!
+## IMPORTANT: Game files required! (How to run)
 
 The GameBase folder in the repository contains all the game files-- graphics, sounds, levels, etc. When you've picked a version and are ready to open/run it, it should be in the same folder as the contents of GameBase. It uses ini files and cache files, so it's not advisable to put multiple versions in the same folder, which is why the game files are stored separately here. 
 
-Download the Releases for a ready-to-go directory setup; they include both the .twinproj source files and compiled versions of each.
+To state it simply: The .twinproj and/or .exe must be in the same folder as the CONFIG/LEVELS/GFX etc folders. If you want multiple versions that don't share level progress, you can create multiple folders with copies of the items from GameBase with the other twinproj/exe.
+
+Download the [current Release version](https://github.com/fafalone/Lems64/releases) for a ready-to-go directory setup; they include both the .twinproj source files and compiled versions of each.
+
+## Level editor
+
+I have not yet completed a 64bit port of the level editor, as it uses more complex common controls without existing x64 ports besides the impractical option of installing MS Office 64bit and extracting the ocx from it's virtual file system. For the time being, you can use the original VB6 level editor. It's included in the VB6 folder of the repository, and an exe build is included in the Release versions.
 
 ---
 
