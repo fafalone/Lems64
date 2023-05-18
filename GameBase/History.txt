@@ -1,0 +1,248 @@
+
+ History:
+
+ 1.0.00: - First release.
+
+ 1.0.01: - Improved/fixed animations transitions
+         - Added explosion frame
+
+ 1.0.02: - Fixed 'fissure' detection. Now lems fall at 'every' pixel
+         - Added all levels
+
+ 1.0.03: - Fixed rendering order: Terrain-Steel-Objects
+         - Fixed masking: rungs were not 'bashed' by bashers, miners and diggers
+         - Fixed some levels
+         - Fixed GUI
+
+ 1.0.04: - Fixed builder feet-checking (one pixel before)
+         - Fixed 'falling' end. Fallers could land over blockers
+
+ 1.0.05: - Fixed layering (objects vs. rungs)
+
+ 1.0.06: - Fixed timing! I realized that one 'second is not a second' :-) Don't know exactly
+           new delay, but it seems to me that rounds 1,6 seconds. Sorry for that! 
+         - Also fixed basher animation. It moved forward only 3 pixels every loop. It should be 4
+
+ 1.0.07: - Fixed terrain painting. Now there is no need to render terrain transparently. All
+           objects are rendered (back* and fore*) onto terrain
+         - Minor fix on builder animation. It checks if lem can move up to next rung (to avoid lem get
+           'hooked' 'inside' terrain)
+
+ 1.0.08: - Added 'Custom' rating folder. Now there is no need to overwrite original levels
+
+ 1.0.09: - Improved x/y offsets on animations transitions
+
+ 1.0.10: - Added music (original Windows version themes)
+
+ 1.0.11: - Fixed pause (frame looping)
+         - Frame delay changed to 80 (still slow?)
+
+ 1.0.12: - Fixed pause (on starting and ending stages)
+         - Fixed explosion hole (2 pixels down)
+
+ 1.0.13: - Fixed 'Take a running jump... (Taxing)' level
+
+ 1.0.14: - Fixed pixel checking in some animations
+
+ 1.0.15: - Fixed some levels (minor offsets)
+
+ 1.0.16: - Fixed exploding animation (fall checking)
+         - Fixed some graphics
+         - Added 'hyperlink' to Lems' PSC page
+
+ 1.0.17: - Fixed masking: liquid and fire (no overlapping)
+
+ 1.0.18: - Improved 'Miner' animation (pixel detection)
+
+ 1.0.19: - Removed unnecessary screen reset
+         - Preview screen now 1x (double resolution)
+         - Pre-exploding animation (1 pixel falling extra)
+
+ 1.0.20: - Fixed traps #11/12 (Graphic Set #3)
+
+ 1.0.21: - Fixed pvCheckPixel() sub (.Job set to 'None')
+         - Fixed basher feet checking (now detects exit, traps...). Also fixed ahead steel-checking
+         - Fixed 'Lost something? (Tricky)' level
+
+ 1.0.22: - Fixed miner's y-offset (before next animation, problems with diggers and builders)
+
+ 1.0.23: - Fixed miner vs blocker (reverse direction)
+         - Fixed 'Armageddon' re-activation
+
+ 1.0.24: - Fixed some levels (terrain)
+         - Fixed basher ending job (5 pixels instead of 7)
+
+ 1.0.25: - All graphics have been 'cleaned'. All colors have been normalized. Now, color could be
+           reduced to a 6-bit palette. If someone wants to convert all code regarding 32-bit
+           processing to 8-bit...
+           A considerable amount of memory could be saved, as well as processing time could be
+           improved
+
+ 1.0.26: - Fixed trap checking. Added 'feet' flag (enable trap only on 'feet checking')
+
+ 1.0.27: - Removed cTile class and mTextExt module: Now via bits directly
+         - Preview window strecth also via same method
+         - Interframe delay changed from 80 to 75 ms
+
+ 1.0.28: - Fixed rare case*: DieNextFrame flag is checked before is set. Sometimes it could be
+           reseted again on next frame (so Lem does not die)
+           *'Lend a helping hand' level (Taxing)
+
+ 1.0.29: - Basher's falling check: done one loop after
+
+ 1.0.30: - Interframe delay changed from 75 to 80 ms
+           It seems to be the 'official' delay
+
+ 1.0.31: - Builder's head check (two pixels after)
+         - Miner's feet checks (one pixel after)
+         - Once again: interframe delay changed from 80 to 75 ms. (closer to DOS version speed)
+         - 8 frames fade-out (10 before)
+
+ 1.0.32: Hope last update!
+         - Improved Lem's description
+         - Fixed FXTile() routine
+
+ 1.0.33: Not last...
+         - Fixed 'Just a Minute (Part Two) (Mayhem)' level
+
+ 1.0.34: Yes, not last...
+         - Timer delay from 1.6 s to 1.35 s. (adjusted to new interframe delay). Not sure how much
+           exact this new delay is
+
+ 1.1.00: - Big update:
+
+           * Graphics and image processing have been translated to 8-bit indexed bitmaps (in fact,
+             6-bit)
+           * Now, cDIB08 class does not use hDIB->hDC. All is done via bitmap bits (1-D byte array)
+           * 8-bit screen color-depth is not supported
+
+             This way we get to avoid making use of extra GDI objects, memory usage is considerably
+             reduced as well as processing time
+
+           Note: Level Editor still uses 32-bit processing
+
+ 1.1.01: - Minor improvement related to sound synchronization:
+           Trap sound is now played on correct frame index
+
+ 1.1.02: - Screen greyscaled on pause
+
+ 1.1.03: - Greyscaling on pause is now a 'darkening'
+
+ 1.1.04: - All graphics have been verticaly flipped
+           cDIB08 reads bitmap data directly: faster loading
+
+ 1.1.05: - Removed second timer (time): all done via *frame* timer: synchronized and not depending
+           on system
+
+ 1.1.06: - Added 'Screenshot' feature (F12)
+
+ 1.1.07: - Screen size normalized to 1600x160 (from 1680x160). Differences between DOS/Windows
+           version?
+         - All levels fixed: added animations not present in Windows version (?). An 'x' offset
+          (-16) has been applied to all levels, too
+         ********************************************************
+         - Improved 'hot-lem' description
+         - Fixed ApplyPrepared() routine. Ability/Job could be applied during exploding animation
+
+ 1.1.08: - Minor addition: 'Fast-Forward' (Key [F] during game)
+
+ 1.2.00: - New timing method
+
+           Before: API timer (WM_TIMER)
+           Now:    Classic game loop
+
+           Important note: Add always a *Sleep(1)* call to minimize loop's CPU consuming time!
+           (Do-Loop *loop* itself)
+
+           First method (API timer) it's quite neat, but not reliable  when dealing with little dt's
+           (less than 100ms) and not *high-performance CPUs*.
+
+           Now, it works fine (at desired *exact* fps) on my old 200MHz machine
+
+ 1.2.01: - ucScreen zooming now *manualy processed* instead of using API StrechDIBits: faster!!!
+
+ 1.2.02: - Added explosion particles
+
+ 1.2.03: - Fixed 'all particles out of screen' check
+
+ 1.2.04: - Graphics storing format changed again
+           8-bit bitmaps now stored (encoded) as follows:
+           - A 8-bit palette stored separately (\RES\Palette.dat)
+           - Bitmap's data as RLE compressed bit-maps (\GFX\*.bm):
+             00-01:  W
+             02-03:  H
+             04-EOF: RLE 8-bit-map
+
+           Results:
+           ~390KB total vs 1.67MB (LZW encoding reached ~140KB)
+
+ 1.3.00: - Graphics storing format 'restored' to original (plain bmp)
+
+ 1.4.xx: - Minor fixes
+         - Some recoding
+
+ 1.5.00: - Added full screen mode [F11]
+         - Removed Common Controls dependencies (only standard controls)
+         - Aesthetic GUI changes (including window colours, [C])
+         - Removed unused graphic files (extended levels' objects)
+         - Restored level 'Lems/Tricky/4 - Here is one I prepared early'
+         - GS_*EX.ini files removed -> Passed to GS_0 (all use set 0)
+         - Improved plus/minus buttons behaviour (initial delay and speed)
+         - Improved 'Panoramic View'. Now objects are rendered, too
+         - Enhanced some levels (added animations)
+         - Added sound synchronization with trap animations
+         - Fixed 'walker' feet-checking (almost-falling, and falling)!!!
+         - Fixed blocker checking when Lem falling over it
+         - Fixed/changed max-falling-height to 63 pixels (as DOS version)
+           Also fixed initial offset applied to falling height on trapdoor
+         - Fixed masking on explosion (explosion also removes right and left way masking now)
+         - Fixed falling/spliting and falling/walking animations
+         - Fixed builder applying check (can be applied now on all allowed cases, e.g., edges)
+         - Fixed ability applying check (can't be applied if going to be dead, or get out)
+         - Fixed ability/job 'can-apply' checking (can't be applied more than once on same tick)
+         - Improved miner blocker checking 
+         - Improved floater animation, and to-walker transition
+         - Improved Miner 'terrain masking', as well as 'minering' slope
+         - Improved Basher 'terrain masking', as well as can-continue check
+         - Improved: can quit game when paused, too
+         - Improved: count-down and particles are rendered on pvDrawLems() routine, now
+           Those are captured on F12 screenshot, too
+         - Added [ESC] to reset last moved <frame> on Editor
+
+ 1.5.01: - Back to original 'Level Selection' screen (allowing now non-consecutive levels in 
+           mode 'Custom')
+
+ 1.5.02: - Minor fix: disabled treeview 'label-editing' ('Level Selection' screen)
+         - Improved: single-click expands treeview 'roots'
+
+ 1.5.03: - Improved: 'Panoramic View' stretching & color normalization routines reduced to
+           a single routine, thereby reducing processing time
+ 
+ 1.5.04: - Fixed: added level number to level title 
+
+ 1.5.05: - Added: [Control]+[F12]: Capture whole game screen to clipboard :-)
+	   Removed: [F1] and [F2] shortcuts ('Play' and 'Select Level')	
+
+ 1.5.06: - Added: Level preview!
+
+ 1.5.07: - Added: Full level info + preview 
+
+ 1.5.08: - Added: Exit 'full-screen' by mouse ('top-menu' appears when screen top is reached)
+
+ 1.5.09: - Added: 4 'Saved Lems' panel modes ([L]):
+           0: Percentage (default)
+           1: Percentage remaining
+           2: Count
+           3: Count remaining
+
+ 1.5.10: - Fixed: Panoramic view not updated on all four game stages (when paused)
+
+ 1.5.11: - Improved (?): New panoramic view look (cleaner) :-))
+         - Swapped [A] and [Z] scroll keys
+
+ 1.5.12: - Fixed: Fast-Forwad not aborted on game over
+         - Added: 'Saved Lems' panel mode stored in settings file
+
+ 1.5.13: - Fixed: builder rung-mask one frame later
+
+//
