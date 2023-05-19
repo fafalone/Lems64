@@ -14,7 +14,7 @@ Class fLems
     ' Dependencies:  -
     ' First release: 2005.07.08
     ' Last revision: 2011.12.05
-    ' VB6 fix / x64 port: 2023.05.15 -fafalone
+    ' VB6 fix / x64 port: 2023.05.15, revised 2023.05.19 - by Jon Johnson (fafalone)
     '========================================================================================
     
     Option Explicit
