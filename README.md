@@ -4,7 +4,9 @@
 
 ### 64-bit compativle twinBASIC port of [Carles PV's Lems](https://github.com/Planet-Source-Code/carles-p-v-a-classic-one-and-sequel__1-61601)
 
-**Current status: twinBASIC Beta 304 fixes the few remaining minor bugs, so Lems/Lems64 is now working near perfectly!**
+**Current status: twinBASIC Beta 305 fixes the few remaining minor bugs, so Lems/Lems64 is now working near perfectly!**
+
+**Update (19 May 2023, v1.5.13.5):** Permanent, and correctly implemented, fix for TreeView icons. Now uses my own 64bit port of the VBCCR ImageList control for this. **Requires [twinBASIC Beta 305](https://github.com/twinbasic/twinbasic/releases) or newer to build!**
 
 **Update (19 May 2023, v1.5.13.4):** Temporary workaround for level select icons by setting them manually via API.
 
@@ -22,9 +24,9 @@ There's also Lems_ImptWorking.twinproj, which is the immediate import of the wor
 
 ## Requirements
 
-Requires twinBASIC Beta 304 or newer to run and build without bugs.
+**Requires [twinBASIC Beta 305](https://github.com/twinbasic/twinbasic/releases) or newer** to run from IDE and build without bugs.
 
-IMPORTANT: If you've been using it in previous versions, note that to fix the coloring issue with level previews, you'll need to delete the .bmp files in \LEVELS, which are cached versions.
+IMPORTANT: If you've been using it in versions prior to 304, note that to fix the coloring issue with level previews, you'll need to delete the .bmp files in \LEVELS, which are cached versions.
 
 ## IMPORTANT: Game files required! (How to run)
 
