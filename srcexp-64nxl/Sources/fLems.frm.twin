@@ -226,8 +226,8 @@ Class fLems
                      "First release: 7/8/2005" & vbCrLf & _
                      "Current version: " & App.Major & "." & App.Minor & "." & App.Revision & vbCrLf & _
                      "Date: " & LAST_REVISION & vbCrLf & vbCrLf & _
-                     "Carles P.V. © 2005-2011" & vbCrLf & vbCrLf _
-                     , vbInformation, _
+                     "Carles P.V. © 2005-2011" & vbCrLf & vbCrLf & _
+                     "x64 port and size adjustment by Jon Johnson (fafalone)", vbInformation, _
                      "About" _
                      )
                      
