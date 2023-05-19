@@ -12,7 +12,7 @@ Private Type Point
 End Type
 
 Private Type DEVMODE
-    dmDeviceName                    As String * CCDEVICENAME
+    dmDeviceName(CCDEVICENAME - 1) As Byte
     dmSpecVersion                   As Integer
     dmDriverVersion                 As Integer
     dmSize                          As Integer
@@ -34,7 +34,6 @@ Private Type DEVMODE
     dmDisplayFlags                  As Long
     dmDisplayFrequency              As Long
 End Type
-
 Private Const CDS_TEST               As Long = 2
 Private Const CDS_FULLSCREEN         As Long = 4
 Private Const DM_PELSWIDTH           As Long = &H80000

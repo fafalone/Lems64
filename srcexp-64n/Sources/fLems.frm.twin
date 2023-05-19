@@ -42,12 +42,12 @@ Class fLems
     Private Sub Form_Load()
         
         '-- Advice!
-        If (InIDE()) Then
-            Call VBA.MsgBox( _
-                 "Please, compile me for full speed!", _
-                 vbExclamation _
-                 )
-        End If
+        ' If (InIDE()) Then
+        '     Call VBA.MsgBox( _
+        '          "Please, compile me for full speed!", _
+        '          vbExclamation _
+        '          )
+        ' End If
         If (ScreenColourDepth < 16) Then
             Call VBA.MsgBox( _
                  "Please, run me on screen color depths >= 16-bit!", _
@@ -226,10 +226,8 @@ Class fLems
                      "First release: 7/8/2005" & vbCrLf & _
                      "Current version: " & App.Major & "." & App.Minor & "." & App.Revision & vbCrLf & _
                      "Date: " & LAST_REVISION & vbCrLf & vbCrLf & _
-                     "Carles P.V. © 2005-2011" & vbCrLf & vbCrLf _
-                     , vbInformation, _
-                     "About" _
-                     )
+                     "Carles P.V. © 2005-2011" & vbCrLf & vbCrLf & _
+                     "x64 port by Jon Johnson (fafalone)", vbInformation, "About")
                      
             Case 2 '-- Goto Lems' page...
             
@@ -725,6 +723,8 @@ Class fLems
             ucInfo.PanelText(i) = vbNullString
         Next i
     End Sub
+    
+
     
 
 End Class
