@@ -2,7 +2,7 @@
 
 ![image](https://github.com/fafalone/Lems64/assets/7834493/c3a9cc6e-5c75-489a-97a8-70c10d4890c3)
 
-### 64-bit compativle twinBASIC port of [Carles PV's Lems](https://github.com/Planet-Source-Code/carles-p-v-a-classic-one-and-sequel__1-61601)
+### 64-bit compatible twinBASIC port of [Carles PV's Lems](https://github.com/Planet-Source-Code/carles-p-v-a-classic-one-and-sequel__1-61601)
 
 **Current status: twinBASIC Beta 305 fixes the few remaining minor bugs, so Lems/Lems64 is now working near perfectly!**
 
