@@ -6,6 +6,9 @@
 
 **Current status: twinBASIC Beta 304 fixes the few remaining minor bugs, so Lems/Lems64 is now working near perfectly!**
 
+**Update (19 May 2023, v1.5.13.4):** Temporary workaround for level select icons by setting them manually via API.
+
+
 ## Versions
 There are three versions currently in the repository to work around this:
 
