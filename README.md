@@ -6,6 +6,8 @@
 
 **Current status: twinBASIC Beta 305 fixes the few remaining minor bugs, so Lems/Lems64 is now working near perfectly!**
 
+**Update (19 May 2023, v1.5.13.6):** Mousewheel fix for 64bit builds, updated URL in about screen since PSC is offline anyway.
+
 **Update (19 May 2023, v1.5.13.5):** Permanent, and correctly implemented, fix for TreeView icons. Now uses my own 64bit port of the VBCCR ImageList control for this. **Requires [twinBASIC Beta 305](https://github.com/twinbasic/twinbasic/releases) or newer to build!**
 
 **Update (19 May 2023, v1.5.13.4):** Temporary workaround for level select icons by setting them manually via API.
