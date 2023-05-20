@@ -5,7 +5,7 @@
 		"AutoRedraw": false,
 		"BackColor": -2147483633,
 		"BorderStyle": "vbFixedSingle",
-		"Caption": "Lems",
+		"Caption": "Lems64",
 		"ClipControls": false,
 		"ControlBox": true,
 		"DrawMode": "vbCopyPen",
@@ -76,7 +76,7 @@
 			"showGrid": true,
 			"showOutlines": false
 		},
-		"__lastUpdateMarker": 1267996304,
+		"__lastUpdateMarker": 1877966379,
 		"_children": [
 			{
 				"Caption": "&Help",
@@ -503,7 +503,7 @@
 				"WhatsThisHelpID": 0,
 				"Width": 960,
 				"_IPersistStreamData": "6urq6pOyAAB0AAAAAwAJACZ1Jb4kAAAAYgBhAGMAawBjAG8AbABvAHIAAAAAAAAABQAIAAvyV0ckAAAAXwBlAHgAdABlAG4AdAB4AAAAAAAAIMxABQAIAAryV0e4////XwBlAHgAdABlAG4AdAB5AAAAAAAAILxA",
-				"_className": "Lems.ucScreen08",
+				"_className": "Lems64NXL.ucScreen08",
 				"_clsid": "{1CBDCC4E-9086-4064-B83D-04F3EDDA8B0F}",
 				"xOffset": 0,
 				"yOffset": 0
@@ -558,7 +558,7 @@
 				"WhatsThisHelpID": 0,
 				"Width": 21,
 				"_IPersistStreamData": "6urq6pOyAABQAAAABQAIAAvyV0ckAAAAXwBlAHgAdABlAG4AdAB4AAAAAAAAsHNABQAIAAryV0fc////XwBlAHgAdABlAG4AdAB5AAAAAAAAoGRA",
-				"_className": "Lems.ucCounter",
+				"_className": "Lems64NXL.ucCounter",
 				"_clsid": "{BE7934EB-8CCE-4074-B45E-964A16F6BC2E}"
 			},
 			{
@@ -597,7 +597,7 @@
 				"WhatsThisHelpID": 0,
 				"Width": 21,
 				"_IPersistStreamData": "6urq6pOyAABQAAAABQAIAAvyV0ckAAAAXwBlAHgAdABlAG4AdAB4AAAAAAAAsHNABQAIAAryV0fc////XwBlAHgAdABlAG4AdAB5AAAAAAAAoGRA",
-				"_className": "Lems.ucCounter",
+				"_className": "Lems64NXL.ucCounter",
 				"_clsid": "{BE7934EB-8CCE-4074-B45E-964A16F6BC2E}"
 			},
 			{
@@ -636,7 +636,7 @@
 				"WhatsThisHelpID": 0,
 				"Width": 21,
 				"_IPersistStreamData": "6urq6pOyAABQAAAABQAIAAvyV0ckAAAAXwBlAHgAdABlAG4AdAB4AAAAAAAAsHNABQAIAAryV0fc////XwBlAHgAdABlAG4AdAB5AAAAAAAAoGRA",
-				"_className": "Lems.ucCounter",
+				"_className": "Lems64NXL.ucCounter",
 				"_clsid": "{BE7934EB-8CCE-4074-B45E-964A16F6BC2E}"
 			},
 			{
@@ -675,7 +675,7 @@
 				"WhatsThisHelpID": 0,
 				"Width": 21,
 				"_IPersistStreamData": "6urq6pOyAABQAAAABQAIAAvyV0ckAAAAXwBlAHgAdABlAG4AdAB4AAAAAAAAsHNABQAIAAryV0fc////XwBlAHgAdABlAG4AdAB5AAAAAAAAoGRA",
-				"_className": "Lems.ucCounter",
+				"_className": "Lems64NXL.ucCounter",
 				"_clsid": "{BE7934EB-8CCE-4074-B45E-964A16F6BC2E}"
 			},
 			{
@@ -714,7 +714,7 @@
 				"WhatsThisHelpID": 0,
 				"Width": 21,
 				"_IPersistStreamData": "6urq6pOyAABQAAAABQAIAAvyV0ckAAAAXwBlAHgAdABlAG4AdAB4AAAAAAAAsHNABQAIAAryV0fc////XwBlAHgAdABlAG4AdAB5AAAAAAAAoGRA",
-				"_className": "Lems.ucCounter",
+				"_className": "Lems64NXL.ucCounter",
 				"_clsid": "{BE7934EB-8CCE-4074-B45E-964A16F6BC2E}"
 			},
 			{
@@ -753,7 +753,7 @@
 				"WhatsThisHelpID": 0,
 				"Width": 21,
 				"_IPersistStreamData": "6urq6pOyAABQAAAABQAIAAvyV0ckAAAAXwBlAHgAdABlAG4AdAB4AAAAAAAAsHNABQAIAAryV0fc////XwBlAHgAdABlAG4AdAB5AAAAAAAAoGRA",
-				"_className": "Lems.ucCounter",
+				"_className": "Lems64NXL.ucCounter",
 				"_clsid": "{BE7934EB-8CCE-4074-B45E-964A16F6BC2E}"
 			},
 			{
@@ -792,7 +792,7 @@
 				"WhatsThisHelpID": 0,
 				"Width": 21,
 				"_IPersistStreamData": "6urq6pOyAABQAAAABQAIAAvyV0ckAAAAXwBlAHgAdABlAG4AdAB4AAAAAAAAsHNABQAIAAryV0fc////XwBlAHgAdABlAG4AdAB5AAAAAAAAoGRA",
-				"_className": "Lems.ucCounter",
+				"_className": "Lems64NXL.ucCounter",
 				"_clsid": "{BE7934EB-8CCE-4074-B45E-964A16F6BC2E}"
 			},
 			{
@@ -831,7 +831,7 @@
 				"WhatsThisHelpID": 0,
 				"Width": 21,
 				"_IPersistStreamData": "6urq6pOyAABQAAAABQAIAAvyV0ckAAAAXwBlAHgAdABlAG4AdAB4AAAAAAAAsHNABQAIAAryV0fc////XwBlAHgAdABlAG4AdAB5AAAAAAAAoGRA",
-				"_className": "Lems.ucCounter",
+				"_className": "Lems64NXL.ucCounter",
 				"_clsid": "{BE7934EB-8CCE-4074-B45E-964A16F6BC2E}"
 			},
 			{
@@ -870,7 +870,7 @@
 				"WhatsThisHelpID": 0,
 				"Width": 21,
 				"_IPersistStreamData": "6urq6pOyAABQAAAABQAIAAvyV0ckAAAAXwBlAHgAdABlAG4AdAB4AAAAAAAAsHNABQAIAAryV0fc////XwBlAHgAdABlAG4AdAB5AAAAAAAAoGRA",
-				"_className": "Lems.ucCounter",
+				"_className": "Lems64NXL.ucCounter",
 				"_clsid": "{BE7934EB-8CCE-4074-B45E-964A16F6BC2E}"
 			},
 			{
@@ -909,7 +909,7 @@
 				"WhatsThisHelpID": 0,
 				"Width": 21,
 				"_IPersistStreamData": "6urq6pOyAABQAAAABQAIAAvyV0ckAAAAXwBlAHgAdABlAG4AdAB4AAAAAAAAsHNABQAIAAryV0fc////XwBlAHgAdABlAG4AdAB5AAAAAAAAoGRA",
-				"_className": "Lems.ucCounter",
+				"_className": "Lems64NXL.ucCounter",
 				"_clsid": "{BE7934EB-8CCE-4074-B45E-964A16F6BC2E}"
 			},
 			{
@@ -949,7 +949,7 @@
 				"WhatsThisHelpID": 0,
 				"Width": 640,
 				"_IPersistStreamData": "6urq6pOyAAB0AAAAAwAJACZ1Jb4kAAAAYgBhAGMAawBjAG8AbABvAHIAAAAAAAAABQAIAAvyV0ckAAAAXwBlAHgAdABlAG4AdAB4AAAAAAAAwMJABQAIAAryV0e4////XwBlAHgAdABlAG4AdAB5AAAAAAAAwJJA",
-				"_className": "Lems.ucScreen08",
+				"_className": "Lems64NXL.ucScreen08",
 				"_clsid": "{1CBDCC4E-9086-4064-B83D-04F3EDDA8B0F}",
 				"xOffset": 0,
 				"yOffset": 0
@@ -990,7 +990,7 @@
 				"WhatsThisHelpID": 0,
 				"Width": 500,
 				"_IPersistStreamData": "6urq6pOyAABQAAAABQAIAAvyV0ckAAAAXwBlAHgAdABlAG4AdAB4AAAAAAAATL1ABQAIAAryV0fc////XwBlAHgAdABlAG4AdAB5AAAAAAAAAH5A",
-				"_className": "Lems.ucToolbar",
+				"_className": "Lems64NXL.ucToolbar",
 				"_clsid": "{5D0000A1-4122-4A41-988E-AC586B95968B}"
 			},
 			{
@@ -1028,7 +1028,7 @@
 				"WhatsThisHelpID": 0,
 				"Width": 954,
 				"_IPersistStreamData": "6urq6pOyAABQAAAABQAIAAvyV0ckAAAAXwBlAHgAdABlAG4AdAB4AAAAAAAA88tABQAIAAryV0fc////XwBlAHgAdABlAG4AdAB5AAAAAAAA4HBA",
-				"_className": "Lems.ucInfo",
+				"_className": "Lems64NXL.ucInfo",
 				"_clsid": "{D791C75E-8A86-4639-BAE4-2BF1784B4E89}"
 			},
 			{

@@ -11,6 +11,7 @@ Private Declare Function GetWindowLong Lib "user32" Alias "GetWindowLongA" (ByVa
 Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hwnd As Long, ByVal nIndex As GWL_INDEX, ByVal dwNewLong As Long) As Long
 #End If
 Private Declare PtrSafe Function CallWindowProc Lib "user32" Alias "CallWindowProcA" (ByVal lpPrevWndFunc As LongPtr, ByVal hWnd As LongPtr, ByVal Msg As Long, ByVal wParam As LongPtr, ByVal lParam As LongPtr) As LongPtr
+Private Declare PtrSafe Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (Destination As Any, Source As Any, ByVal Length As LongPtr)
 
 Private Enum GWL_INDEX
     GWL_WNDPROC = (-4)
@@ -43,6 +44,7 @@ End Sub
 '========================================================================================
 ' Private
 '========================================================================================
+
 Private Sub SendKeysB(ByRef Text As String, Optional ByRef Wait As Boolean)
     Static wsh As Object
     If wsh Is Nothing Then
@@ -50,6 +52,7 @@ Private Sub SendKeysB(ByRef Text As String, Optional ByRef Wait As Boolean)
     End If
     wsh.SendKeys Text, Wait
 End Sub
+
 Private Function pvWindowProcLems( _
                  ByVal hwnd As LongPtr, _
                  ByVal uMsg As Long, _
@@ -64,8 +67,9 @@ Private Function pvWindowProcLems( _
             Call mTiming.SetAppActive(CBool(wParam And &HFFFF&))
         
         Case WM_MOUSEWHEEL
-        
-            If (wParam > 0) Then
+            Dim noExt As Long
+            CopyMemory noExt, wParam, 4
+            If (noExt > 0) Then
                 'Call VBA.SendKeys("Z")
                 SendKeysB "Z"
               Else

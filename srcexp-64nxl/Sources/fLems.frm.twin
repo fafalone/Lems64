@@ -14,13 +14,13 @@ Class fLems
     ' Dependencies:  -
     ' First release: 2005.07.08
     ' Last revision: 2011.12.05
-    ' VB6 fix / x64 port: 2023.05.15; revised 2023.05.19 -fafalone
+    ' VB6 fix / x64 port: 2023.05.15; revised 2023.05.20 -fafalone
     '========================================================================================
     
     Option Explicit
     
-    Private Const LEMS_LINK = "http://www.planet-source-code.com/vb/scripts/ShowCode.asp?txtCodeId=61601&lngWId=1"
-    Private Const LAST_REVISION = "2011/12/05"
+    Private Const LEMS_LINK = "https://github.com/fafalone/Lems64"
+    Private Const LAST_REVISION = "2023/05/20"
     
     '========================================================================================
     ' GUI initialization
@@ -224,7 +224,7 @@ Class fLems
                      "Oh No! More Lems" & vbCrLf & vbCrLf & _
                      "Remake of the well-known classic game" & Space$(5) & vbCrLf & vbCrLf & _
                      "First release: 7/8/2005" & vbCrLf & _
-                     "Current version: " & App.Major & "." & App.Minor & "." & App.Revision & vbCrLf & _
+                     "Current version: " & App.Major & "." & App.Minor & "." & App.Revision & "." & App.Build & vbCrLf & _
                      "Date: " & LAST_REVISION & vbCrLf & vbCrLf & _
                      "Carles P.V. © 2005-2011" & vbCrLf & vbCrLf & _
                      "x64 port and size adjustment by Jon Johnson (fafalone)", vbInformation, _
@@ -234,7 +234,7 @@ Class fLems
             Case 2 '-- Goto Lems' page...
             
                 If (VBA.MsgBox( _
-                    "You will be navigated to Lems' home page.", _
+                    "You will be navigated to Lems64's home page.", _
                     vbYesNo Or vbInformation) = vbYes _
                     ) Then
                     
