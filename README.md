@@ -6,7 +6,7 @@
 
 **Current status: twinBASIC Beta 305 fixes the few remaining minor bugs, so Lems/Lems64 is now working near perfectly!**
 
-**LemsEdit update:** There's now a test version in the repo. To use, you'll need to replace the comctl32.ocx controls with mscomctl32.ocx, and for 64bit, extract it from the MS Office VFS and register it in System32. I'm currently working on replacing the controls with API versions. The exception is the Slider, tB has a Slider you can replace the comctl32.ocx one with without other change.
+**LemsEdit update (NEW!):** The repo now has a Release Candidate test version of the Lems level editor. The slider has been replaced with a tB slider, the statusbar with a textbox, and the tab control with a minimal direct API implementation. So no outside dependencies.
 
 **Update (20 May 2023, v1.5.13.6):** Mousewheel fix for 64bit builds, updated URL in about screen since PSC is offline anyway.
 
