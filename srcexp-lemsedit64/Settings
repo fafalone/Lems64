@@ -1,0 +1,65 @@
+{
+	"configuration.inherits": "Defaults",
+	"debugger.runtimeCommandLineArguments": "",
+	"project.appHelpFile": "",
+	"project.appTitle": "LemsEdit64",
+	"project.autoPrettify": true,
+	"project.buildPath": "${SourcePath}\\${ProjectName}_${Architecture}.${FileExtension}",
+	"project.buildType": "Standard EXE",
+	"project.description": "Level editor for Lems64",
+	"project.exportPathIsV2": true,
+	"project.forceDpiAwarenessAtStartup": "NONE",
+	"project.id": "{D5A4F8E2-7781-42B6-9B87-2FB4BA99AAF2}",
+	"project.name": "LemsEdit64",
+	"project.optionExplicit": true,
+	"project.references": [
+		{
+			"id": "{F50B82D0-DCAB-43FE-9631-11959D4A4728}",
+			"isCompilerPackage": true,
+			"lcid": 0,
+			"licence": "MIT",
+			"name": "[COMPILER PACKAGE] WinNativeForms Package",
+			"path32": "",
+			"path64": "",
+			"publisher": "TWINBASIC-COMPILER",
+			"versionBuild": 0,
+			"versionMajor": 0,
+			"versionMinor": 0,
+			"versionRevision": 31
+		},
+		{
+			"id": "{00020430-0000-0000-C000-000000000046}",
+			"lcid": 0,
+			"name": "OLE Automation",
+			"path32": "\\\\?\\C:\\Windows\\SysWOW64\\stdole2.tlb",
+			"path64": "\\\\?\\C:\\Windows\\SysWOW64\\stdole2.tlb",
+			"versionMajor": 2,
+			"versionMinor": 0
+		},
+		{
+			"id": "{D63CB78D-9F5B-42FE-B94C-A545F2B2BFC3}",
+			"isCompilerPackage": true,
+			"licence": "MIT",
+			"name": "[COMPILER PACKAGE] WinNativeCommonCtls Package",
+			"publisher": "TWINBASIC-COMPILER",
+			"versionBuild": 0,
+			"versionMajor": 0,
+			"versionMinor": 0,
+			"versionRevision": 1
+		}
+	],
+	"project.settingsVersion": 1,
+	"project.startupObject": "fEdit",
+	"project.versionBuild": 1,
+	"project.versionCompanyName": "Microsoft",
+	"project.versionLegalCopyright": "Carles P.V. © 2005-2011",
+	"project.versionMajor": 1,
+	"project.versionMinor": 2,
+	"project.versionProductName": "LemsEdit",
+	"project.versionRevision": 0,
+	"project.warnings": {
+		"errors": [],
+		"ignored": []
+	},
+	"runtime.useUnicodeStandardLibrary": true
+}

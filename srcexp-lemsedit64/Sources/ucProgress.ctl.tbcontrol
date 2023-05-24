@@ -1,0 +1,26 @@
+[
+   {
+      "ScaleWidth": 200,
+      "ScaleMode": 3,
+      "ScaleHeight": 20,
+      "FontStrikethru": 0,
+      "FontItalic": 0,
+      "FontUnderline": 0,
+      "FontBold":false,
+      "FontCharset": 0,
+      "FontSize": 9,
+      "FontName": "Tahoma",
+      "ClipControls": 0,
+      "ClientWidth": 3000,
+      "ClientTop": 0,
+      "ClientLeft": 0,
+      "ClientHeight": 300,
+      "CanGetFocus": 0,
+      "Alignable": -1,
+      "_clsid": "{33AD5010-6699-11CF-B70C-00AA0060D393}",
+      "FormDesignerId": "{C47C426E-74EA-49C8-BCEE-1FF166556139}",
+      "Width":200,
+      "Height":20,
+      "Name":"ucProgress"
+   }
+]

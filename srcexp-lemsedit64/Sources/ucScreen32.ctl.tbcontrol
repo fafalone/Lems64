@@ -1,0 +1,28 @@
+[
+   {
+      "ScaleWidth": 100,
+      "ScaleMode": 3,
+      "ScaleHeight": 100,
+      "MousePointer": 99,
+      "LockControls": -1,
+      "KeyPreview": -1,
+      "FontStrikethru": 0,
+      "FontItalic": 0,
+      "FontUnderline": 0,
+      "FontBold":false,
+      "FontCharset": 0,
+      "FontSize": 8.25,
+      "FontName": "Tahoma",
+      "ClipControls": 0,
+      "ClipBehavior": 0,
+      "ClientWidth": 1500,
+      "ClientTop": 0,
+      "ClientLeft": 0,
+      "ClientHeight": 1500,
+      "_clsid": "{33AD5010-6699-11CF-B70C-00AA0060D393}",
+      "FormDesignerId": "{7CFFF697-BF0B-4220-AAD2-BC3429BF02FF}",
+      "Width":100,
+      "Height":100,
+      "Name":"ucScreen32"
+   }
+]

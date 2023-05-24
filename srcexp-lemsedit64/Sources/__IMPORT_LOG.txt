@@ -1,0 +1,31 @@
+
+Import from Visual Basic VBP file 'C:\vb6\LemmingsU\LemsEdit.vbp'...
+   successfully set project.buildType to 'Standard EXE' at line #1
+   ***WARNING*** converted relative reference path from '..\..\Windows\SysWOW64\stdole2.tlb' to '\\?\C:\Windows\SysWOW64\stdole2.tlb' at line #2
+   successfully added project.reference 'OLE Automation' at line #2
+   successfully imported MODULE 'mEdit.bas' at line #4
+   successfully imported MODULE 'mMain.bas' at line #5
+   successfully added project.reference [COMPONENT] 'comctl32.ocx' at line #6
+   successfully imported MODULE 'mMisc.bas' at line #7
+   successfully imported MODULE 'mDialogFile.bas' at line #9
+   successfully imported MODULE 'mEditRenderer.bas' at line #10
+   successfully imported CLASS 'cDIB32.cls' at line #12
+   successfully imported MODULE 'mINI.bas' at line #13
+   successfully imported RESOURCE FILE 'LemsEdit.res' at line #14
+   successfully set project.startupObject to 'fEdit' at line #16
+   successfully set project.appHelpFile to '' at line #17
+   successfully set project.appTitle to 'Editor' at line #18
+   successfully imported Command Line Arguments '' at line #20
+   successfully set project.name to 'LemsEdit' at line #21
+   successfully set project.versionMajor to '1' at line #24
+   successfully set project.versionMinor to '2' at line #25
+   successfully set project.versionRevision to '0' at line #26
+   successfully set project.versionCompanyName to 'Microsoft' at line #29
+   successfully set project.versionLegalCopyright to 'Carles P.V. © 2005-2011' at line #30
+   successfully set project.versionProductName to 'LemsEdit' at line #31
+   successfully imported USERCONTROL 'ucScreen32.ctl' at line #11
+   successfully imported USERCONTROL 'ucProgress.ctl' at line #8
+   successfully imported FORM 'fEdit.frm' at line #3
+IMPORT FINISHED WITH 0 ERRORS/WARNINGS
+
+(you can delete this log file)

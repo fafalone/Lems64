@@ -1,0 +1,1010 @@
+[ FormDesignerId ("42674CA6-1094-495D-A71A-81185610D67D") ]
+[ ClassId ("748FB60D-AD7A-4672-8733-6D091A0AF497") ]
+[ InterfaceId ("C20B7A78-C69A-4A11-BAE0-FF610716D1A7") ]
+[ EventInterfaceId ("F1722126-10D1-424A-B7BF-0247406065AA") ]
+Class fEdit
+    Attribute VB_Name = "fEdit"
+    Attribute VB_GlobalNameSpace = False
+    Attribute VB_Creatable = False
+    Attribute VB_PredeclaredId = True
+    Attribute VB_Exposed = False
+    '================================================
+    ' Project:       Lems Level Editor
+    ' Author:        Carles P.V. ©2005-2011
+    ' Dependencies:  -
+    ' First release: 2005.07.08
+    ' Last revision: 2011.04.15
+    '
+    'x64 port updated 2023.05.23 by Jon Johnson (fafalone)
+    '================================================
+    
+    Option Explicit
+    
+    'Full tab ctl defs... todo: trim unused
+    
+Private hTab As LongPtr
+Private sTab1 As String = "Level features"
+Private sTab2 As String = "Object"
+Private sTab3 As String = "Terrain"
+Private sTab4 As String = "Steel"
+Private sTab5 As String = "Preferences"
+
+Private Type POINTAPI
+    x As Long
+    y As Long
+End Type
+Private Enum WindowStyles
+    WS_OVERLAPPED = &H00000000
+    WS_POPUP = &H80000000
+    WS_CHILD = &H40000000
+    WS_MINIMIZE = &H20000000
+    WS_VISIBLE = &H10000000
+    WS_DISABLED = &H08000000
+    WS_CLIPSIBLINGS = &H04000000
+    WS_CLIPCHILDREN = &H02000000
+    WS_MAXIMIZE = &H01000000
+    WS_BORDER = &H00800000
+    WS_DLGFRAME = &H00400000
+    WS_VSCROLL = &H00200000
+    WS_HSCROLL = &H00100000
+    WS_SYSMENU = &H00080000
+    WS_THICKFRAME = &H00040000
+    WS_GROUP = &H00020000
+    WS_TABSTOP = &H00010000
+    WS_MINIMIZEBOX = &H00020000
+    WS_MAXIMIZEBOX = &H00010000
+    WS_CAPTION = (WS_BORDER Or WS_DLGFRAME)
+    WS_TILED = WS_OVERLAPPED
+    WS_ICONIC = WS_MINIMIZE
+    WS_SIZEBOX = WS_THICKFRAME
+    WS_TILEDWINDOW = WS_OVERLAPPEDWINDOW
+    WS_OVERLAPPEDWINDOW = WS_OVERLAPPED Or WS_CAPTION Or WS_SYSMENU Or WS_THICKFRAME Or WS_MINIMIZEBOX Or WS_MAXIMIZEBOX
+    WS_POPUPWINDOW = WS_POPUP Or WS_BORDER Or WS_SYSMENU
+    WS_CHILDWINDOW = WS_CHILD
+End Enum
+Public Enum WindowStylesEx
+    WS_EX_DLGMODALFRAME = &H00000001
+    WS_EX_NOPARENTNOTIFY = &H00000004
+    WS_EX_TOPMOST = &H00000008
+    WS_EX_ACCEPTFILES = &H00000010
+    WS_EX_TRANSPARENT = &H00000020
+    WS_EX_MDICHILD = &H00000040
+    WS_EX_TOOLWINDOW = &H00000080
+    WS_EX_WINDOWEDGE = &H00000100
+    WS_EX_CLIENTEDGE = &H00000200
+    WS_EX_CONTEXTHELP = &H00000400
+    WS_EX_RIGHT = &H00001000
+    WS_EX_LEFT = &H00000000
+    WS_EX_RTLREADING = &H00002000
+    WS_EX_LTRREADING = &H00000000
+    WS_EX_LEFTSCROLLBAR = &H00004000
+    WS_EX_RIGHTSCROLLBAR = &H00000000
+    WS_EX_CONTROLPARENT = &H00010000
+    WS_EX_STATICEDGE = &H00020000
+    WS_EX_APPWINDOW = &H00040000
+    WS_EX_OVERLAPPEDWINDOW = (WS_EX_WINDOWEDGE Or WS_EX_CLIENTEDGE)
+    WS_EX_PALETTEWINDOW = (WS_EX_WINDOWEDGE Or WS_EX_TOOLWINDOW Or WS_EX_TOPMOST)
+    WS_EX_LAYERED = &H00080000
+    WS_EX_NOINHERITLAYOUT = &H00100000 ' Disable inheritence of mirroring by children
+    WS_EX_NOREDIRECTIONBITMAP = &H00200000
+    WS_EX_LAYOUTRTL = &H00400000 ' Right to left mirroring
+    WS_EX_COMPOSITED = &H02000000
+    WS_EX_NOACTIVATE = &H08000000
+End Enum
+Private Const WM_DESTROY = &H0002
+Private Const WM_SETFONT = &H0030
+Private Const WM_GETFONT = &H0031
+Private Const WM_NOTIFY = &H004E
+Private Const WM_NOTIFYFORMAT = &H0055
+Private Const NFR_UNICODE                         = 2
+
+Private Declare PtrSafe Function CreateWindowExW Lib "user32" (ByVal dwExStyle As WindowStylesEx, ByVal lpClassName As LongPtr, ByVal lpWindowName As LongPtr, ByVal dwStyle As WindowStyles, ByVal X As Long, ByVal Y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal hWndParent As LongPtr, ByVal hMenu As LongPtr, ByVal hInstance As LongPtr, lpParam As Any) As LongPtr
+Private Declare PtrSafe Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal hWnd As LongPtr, ByVal wMsg As Long, ByVal wParam As LongPtr, lParam As Any) As LongPtr
+Private Declare PtrSafe Function DefSubclassProc Lib "comctl32.dll" Alias "#413" (ByVal hWnd As LongPtr, ByVal uMsg As Long, ByVal wParam As LongPtr, ByVal lParam As LongPtr) As LongPtr
+Private Declare PtrSafe Function SetWindowSubclass Lib "comctl32.dll" Alias "#410" (ByVal hWnd As LongPtr, ByVal pfnSubclass As LongPtr, ByVal uIdSubclass As LongPtr, Optional ByVal dwRefData As LongPtr) As Long
+Private Declare PtrSafe Function RemoveWindowSubclass Lib "comctl32.dll" Alias "#412" (ByVal hWnd As LongPtr, ByVal pfnSubclass As LongPtr, ByVal uIdSubclass As LongPtr) As Long
+Private Declare PtrSafe Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (lpDst As Any, lpSrc As Any, ByVal Length As LongPtr)
+
+Private Const WC_TABCONTROL = "SysTabControl32"
+Private Const H_MAX As Long = (&HFFFF + 1)
+Private Const TCM_FIRST = &H1300                   '// Tab control messages
+Private Const TCN_FIRST = H_MAX - 550
+Private Const CCM_FIRST = &H2000
+Private Const CCM_SETBKCOLOR = (CCM_FIRST + 1)   ' lParam is bkColor
+Private Const CCM_SETCOLORSCHEME = (CCM_FIRST + 2)     ' lParam is color scheme
+Private Const CCM_GETCOLORSCHEME = (CCM_FIRST + 3)     ' fills in COLORSCHEME pointed to by lParam
+Private Const CCM_GETDROPTARGET = (CCM_FIRST + 4)
+Private Const CCM_SETUNICODEFORMAT = (CCM_FIRST + 5)
+Private Const CCM_GETUNICODEFORMAT = (CCM_FIRST + 6)
+Private Type NMHDR
+    hWndFrom                    As LongPtr
+    IDFrom                      As LongPtr
+    Code                        As Long
+End Type
+Private Enum TabItemFlags
+    TCIF_TEXT = &H1
+    TCIF_IMAGE = &H2
+    TCIF_RTLREADING = &H4
+    TCIF_PARAM = &H8
+    TCIF_STATE = &H10
+End Enum '
+Private Enum TabExStyles
+    '  EX styles for use with TCM_SETEXTENDEDSTYLE
+    TCS_EX_FLATSEPARATORS = &H00000001
+    TCS_EX_REGISTERDROP = &H00000002
+End Enum
+Public Type TCITEMW
+    Mask        As TabItemFlags
+    dwState     As TabItemState
+    dwStateMask As TabItemState
+    pszText     As LongPtr
+    cchTextMax  As Long
+    iImage      As Long
+    lParam      As LongPtr
+End Type
+Private Type TCITEMA
+    Mask        As TabItemFlags
+    dwState     As TabItemState
+    dwStateMask As TabItemState
+    pszText     As String
+    cchTextMax  As Long
+    iImage      As Long
+    lParam      As LongPtr
+End Type
+Private Enum TabStyles
+    TCS_SCROLLOPPOSITE = &H0001 ' assumes multiline tab
+    TCS_BOTTOM = &H0002
+    TCS_RIGHT = &H0002
+    TCS_MULTISELECT = &H0004 ' allow multi-select in button mode
+    TCS_FLATBUTTONS = &H0008
+    TCS_FORCEICONLEFT = &H0010
+    TCS_FORCELABELLEFT = &H0020
+    TCS_HOTTRACK = &H0040
+    TCS_VERTICAL = &H0080
+    TCS_TABS = &H0000
+    TCS_BUTTONS = &H0100
+    TCS_SINGLELINE = &H0000
+    TCS_MULTILINE = &H0200
+    TCS_RIGHTJUSTIFY = &H0000
+    TCS_FIXEDWIDTH = &H0400
+    TCS_RAGGEDRIGHT = &H0800
+    TCS_FOCUSONBUTTONDOWN = &H1000
+    TCS_OWNERDRAWFIXED = &H2000
+    TCS_TOOLTIPS = &H4000
+    TCS_FOCUSNEVER = &H8000&
+End Enum
+
+Private Enum TabItemState
+    TCIS_BUTTONPRESSED = &H0001
+    TCIS_HIGHLIGHTED = &H0002
+    TCIS_HIDDEN = &H0004 'UNDOCUMENTED
+End Enum
+
+Private Type TCITEMHEADER
+    Mask As TabItemFlags
+    lpReserved1 As Long
+    lpReserved2 As Long
+    pszText As LongPtr
+    cchTextMax As Long
+    iImage As Long
+End Type
+Private Type TCITEMHEADERA
+    Mask As TabItemFlags
+    lpReserved1 As Long
+    lpReserved2 As Long
+    pszText As String
+    cchTextMax As Long
+    iImage As Long
+End Type
+
+Private Const TCM_GETBKCOLOR = (TCM_FIRST + 0) 'UNDOCUMENTED
+Private Const TCM_SETBKCOLOR = (TCM_FIRST + 1) 'UNDOCUMENTED
+Private Const TCM_GETIMAGELIST = (TCM_FIRST + 2)
+Private Const TCM_SETIMAGELIST = (TCM_FIRST + 3)
+Private Const TCM_GETITEMCOUNT = (TCM_FIRST + 4)
+Private Const TCM_GETITEMA = (TCM_FIRST + 5)
+Private Const TCM_GETITEMW = (TCM_FIRST + 60)
+Private Const TCM_GETITEM = TCM_GETITEMW
+Private Const TCM_SETITEMA = (TCM_FIRST + 6)
+Private Const TCM_SETITEMW = (TCM_FIRST + 61)
+Private Const TCM_SETITEM = TCM_SETITEMW
+Private Const TCM_INSERTITEMA = (TCM_FIRST + 7)
+Private Const TCM_INSERTITEMW = (TCM_FIRST + 62)
+Private Const TCM_INSERTITEM = TCM_INSERTITEMW
+Private Const TCM_DELETEITEM = (TCM_FIRST + 8)
+Private Const TCM_DELETEALLITEMS = (TCM_FIRST + 9)
+Private Const TCM_GETITEMRECT = (TCM_FIRST + 10)
+Private Const TCM_GETCURSEL = (TCM_FIRST + 11)
+Private Const TCM_SETCURSEL = (TCM_FIRST + 12)
+Private Const TCM_HITTEST = (TCM_FIRST + 13)
+Private Const TCM_SETITEMEXTRA = (TCM_FIRST + 14)
+Private Const TCM_ADJUSTRECT = (TCM_FIRST + 40)
+Private Const TCM_SETITEMSIZE = (TCM_FIRST + 41)
+Private Const TCM_REMOVEIMAGE = (TCM_FIRST + 42)
+Private Const TCM_SETPADDING = (TCM_FIRST + 43)
+Private Const TCM_GETROWCOUNT = (TCM_FIRST + 44)
+Private Const TCM_GETTOOLTIPS = (TCM_FIRST + 45)
+Private Const TCM_SETTOOLTIPS = (TCM_FIRST + 46)
+Private Const TCM_GETCURFOCUS = (TCM_FIRST + 47)
+Private Const TCM_SETCURFOCUS = (TCM_FIRST + 48)
+Private Const TCM_SETMINTABWIDTH = (TCM_FIRST + 49)
+Private Const TCM_DESELECTALL = (TCM_FIRST + 50)
+Private Const TCM_HIGHLIGHTITEM = (TCM_FIRST + 51)
+Private Const TCM_SETEXTENDEDSTYLE = (TCM_FIRST + 52)    ' // optional wParam
+Private Const TCM_GETEXTENDEDSTYLE = (TCM_FIRST + 53)
+Private Const TCM_SETUNICODEFORMAT = CCM_SETUNICODEFORMAT
+Private Const TCM_GETUNICODEFORMAT = CCM_GETUNICODEFORMAT
+
+Private Enum TabHitTestFlags
+    TCHT_NOWHERE = &H0001
+    TCHT_ONITEMICON = &H0002
+    TCHT_ONITEMLABEL = &H0004
+    TCHT_ONITEM = (TCHT_ONITEMICON Or TCHT_ONITEMLABEL)
+End Enum
+
+Private Type TCHITTESTINFO
+    PT As POINTAPI
+    Flags As TabHitTestFlags
+End Type
+
+Private Const TCN_KEYDOWN = (TCN_FIRST - 0)
+Private Const TCN_SELCHANGE = (TCN_FIRST - 1)
+Private Const TCN_SELCHANGING = (TCN_FIRST - 2)
+Private Const TCN_GETOBJECT = (TCN_FIRST - 3)
+Private Const TCN_FOCUSCHANGE = (TCN_FIRST - 4)
+[ PackingAlignment (1) ]
+Private Type TCKEYDOWN
+    hdr As NMHDR
+    wVKey As Long
+    Flags As Long
+End Type
+
+Private Const DEFAULT_GUI_FONT = 17
+Private Declare PtrSafe Function GetStockObject Lib "gdi32.dll" (ByVal nIndex As Long) As LongPtr
+    '========================================================================================
+    ' GUI initialization
+    '========================================================================================
+    
+    Private Sub pvCreateTabCtl()
+    	Dim dwStyle As TabStyles = TCS_HOTTRACK
+        
+        hTab = CreateWindowExW(0, StrPtr(WC_TABCONTROL), 0, dwStyle Or WS_CHILD Or WS_VISIBLE, 0, 0, pbOptions.ScaleWidth, pbOptions.ScaleHeight, pbOptions.hWnd, 0, App.hInstance, ByVal 0)
+                
+        If hTab Then
+            'Dim hFont As LongPtr = SendMessage(pbOptions.hWnd, WM_GETFONT, 0, ByVal 0)
+            Dim hFont As LongPtr = GetStockObject(DEFAULT_GUI_FONT)
+            SendMessage hTab, WM_SETFONT, hFont, ByVal 1
+            
+        	Dim tItem As TCITEMW
+            tItem.Mask = TCIF_TEXT Or TCIF_PARAM
+            tItem.pszText = StrPtr(sTab1)
+            tItem.cchTextMax = Len(sTab1)
+            SendMessage hTab, TCM_INSERTITEMW, 0, tItem
+            tItem.Mask = TCIF_TEXT Or TCIF_PARAM
+            tItem.pszText = StrPtr(sTab2)
+            tItem.cchTextMax = Len(sTab2)
+            SendMessage hTab, TCM_INSERTITEMW, 1, tItem
+            tItem.Mask = TCIF_TEXT Or TCIF_PARAM
+            tItem.pszText = StrPtr(sTab3)
+            tItem.cchTextMax = Len(sTab3)
+            SendMessage hTab, TCM_INSERTITEMW, 2, tItem
+            tItem.Mask = TCIF_TEXT Or TCIF_PARAM
+            tItem.pszText = StrPtr(sTab4)
+            tItem.cchTextMax = Len(sTab4)
+            SendMessage hTab, TCM_INSERTITEMW, 3, tItem
+            tItem.Mask = TCIF_TEXT Or TCIF_PARAM
+            tItem.pszText = StrPtr(sTab5)
+            tItem.cchTextMax = Len(sTab5)
+            SendMessage hTab, TCM_INSERTITEMW, 4, tItem
+            
+            Subclass2 pbOptions.hWnd, AddressOf TabWndProc, hTab
+        End If
+    End Sub
+    
+    Private Sub Form_Load()
+        pvCreateTabCtl
+        
+        '-- Skill icons
+        Set imgSkill(0) = VB.LoadPicture(mMisc.AppPath & "RES\Climber.ico")
+        Set imgSkill(1) = VB.LoadPicture(mMisc.AppPath & "RES\Floater.ico")
+        Set imgSkill(2) = VB.LoadPicture(mMisc.AppPath & "RES\Bomber.ico")
+        Set imgSkill(3) = VB.LoadPicture(mMisc.AppPath & "RES\Blocker.ico")
+        Set imgSkill(4) = VB.LoadPicture(mMisc.AppPath & "RES\Builder.ico")
+        Set imgSkill(5) = VB.LoadPicture(mMisc.AppPath & "RES\Basher.ico")
+        Set imgSkill(6) = VB.LoadPicture(mMisc.AppPath & "RES\Miner.ico")
+        Set imgSkill(7) = VB.LoadPicture(mMisc.AppPath & "RES\Digger.ico")
+        
+        '-- Item info
+        Set iSelectionPosition = VB.LoadPicture(mMisc.AppPath & "RES\Position.ico")
+        Set iSelectionSize = VB.LoadPicture(mMisc.AppPath & "RES\Size.ico")
+        Set iZOrder = VB.LoadPicture(mMisc.AppPath & "RES\ZOrder.ico")
+        
+        '-- Style changes
+        Call mMisc.SetButtonOwnerDraw(cmdObjectAdd, False)
+        Call mMisc.SetButtonOwnerDraw(cmdTerrainPieceAdd, False)
+        Call mMisc.SetButtonOwnerDraw(cmdSteelAreaAdd, False)
+        Call mMisc.SetButtonOwnerDraw(cmdUp, False)
+        Call mMisc.SetButtonOwnerDraw(cmdDown, False)
+        Call mMisc.SetButtonOwnerDraw(cmdLeft, False)
+        Call mMisc.SetButtonOwnerDraw(cmdRight, False)
+        Call mMisc.SetButtonOwnerDraw(cmdZOrderUp, False)
+        Call mMisc.SetButtonOwnerDraw(cmdZOrderDown, False)
+        
+        '-- Initialize game screen
+        With ucScreen
+            .EraseBackground = False
+            .WorkMode = [eUserMode]
+            .Zoom = 2
+            Set .UserIcon = VB.LoadResPicture("CUR_HAND", vbResCursor)
+            Call .DIB.Create(320, 160)
+            Call .Resize
+        End With
+        
+        '-- Initialize object and terrain piece screens
+        ucObjectPreview.Zoom = 2
+        ucTerrainPiecePreview.Zoom = 2
+        
+        '-- Initialize statistics
+        ucPrgObjects.Max = MAX_OBJECTS
+        ucPrgTerrainPieces.Max = MAX_TERRAINPIECES
+        ucPrgSteelAreas.Max = MAX_STEELAREAS
+        
+        '-- Initialize editor + info
+        Call mEdit.Initialize
+        Call mEdit.InitializeInfo
+        
+        '-- Initialize Graphic Set and set default level path (first one)
+        Call pvInitializeGraphicSet
+        sLEVELPATH = mMisc.AppPath & "Levels\0000.dat"
+    End Sub
+    
+    Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+        
+      Dim lRet As VBA.VbMsgBoxResult
+        
+        '-- Ask for saving
+        lRet = VBA.MsgBox( _
+               "Close Editor?", _
+               vbInformation Or vbYesNo _
+               )
+        
+        Select Case lRet
+            Case [vbYes]
+                '-- Unload
+                Call Unload(Me)
+            Case [vbNo]
+                '-- Cancel action
+                Cancel = 1
+        End Select
+    End Sub
+    
+    '========================================================================================
+    ' Load/Save level
+    '========================================================================================
+    
+    Private Sub mnuFile_Click(Index As Integer)
+        
+      Dim sRet As String
+      
+        Select Case Index
+            
+            Case 0 '-- Load level
+                    
+                sRet = mDialogFile.GetFileName( _
+                       Me.hWnd, _
+                       sLEVELPATH, _
+                       "Level files|*.dat", _
+                       , _
+                       "Load level", _
+                       OpenDialog:=True _
+                       )
+                
+                If (sRet <> vbNullString) Then
+                
+                    If (mMain.IsExtendedLevel(sRet)) Then
+                        
+                        Call VBA.MsgBox( _
+                             "Extended level: edition not supported.", _
+                             vbInformation _
+                             )
+                        
+                      Else
+                        
+                        sLEVELPATH = sRet
+                        Call pvUpdateAppCaption
+                        Call pvUpdateLevelPath
+                        Call mMain.LoadLevel(sRet)
+                        Call mEdit.InitializeInfo
+                        
+                        ucScroll.Value = uLEVEL.ScreenStart
+                        Call mEdit.DoFrame
+                    End If
+                End If
+                
+            Case 1 '-- Save (as)
+                
+                sRet = mDialogFile.GetFileName( _
+                       Me.hWnd, _
+                       sLEVELPATH, _
+                       "Level files|*.dat", _
+                       , _
+                       "Save level", _
+                       OpenDialog:=False _
+                       )
+               
+                If (sRet <> vbNullString) Then
+                
+                    sLEVELPATH = sRet
+    
+                    Call pvUpdateAppCaption
+                    Call pvUpdateLevelPath
+                    Call mMain.SaveLevel(sLEVELPATH)
+                End If
+                
+            Case 3 '-- Check level...
+                
+                Call VBA.MsgBox( _
+                     mMain.CheckLevel(), _
+                     vbInformation _
+                     )
+                
+            Case 4 '-- Clear
+            
+                If (VBA.MsgBox( _
+                    "Are you sure you want to clear level?", _
+                    vbExclamation Or vbYesNo _
+                    ) = vbYes _
+                    ) Then
+                    If (VBA.MsgBox( _
+                        "Reset level features?", _
+                        vbExclamation Or vbYesNo _
+                        ) = vbYes _
+                        ) Then
+                        Call mMain.ClearLevel(ClearLevelFeatures:=True)
+                      Else
+                        Call mMain.ClearLevel(ClearLevelFeatures:=False)
+                    End If
+                    Call mEdit.InitializeInfo
+                    Call mEdit.DoFrame
+                End If
+            
+            Case 6 '-- Exit
+            
+                Call Unload(Me)
+        End Select
+    End Sub
+    
+    Private Sub mnuHelp_Click(Index As Integer)
+               
+        Call VBA.MsgBox( _
+             "Lems64 Level Editor " & App.Major & "." & App.Minor & "." & App.Revision & "." & App.Build & Space$(10) & vbCrLf & vbCrLf & _
+             "Carles P.V. ©2005-2011" & vbCrLf & vbCrLf & "x64 port and minor revision by Jon Johson (fafalone), 2023", _
+             vbInformation _
+             )
+    End Sub
+    
+    '========================================================================================
+    ' Screen scroll
+    '========================================================================================
+    
+    Private Sub ucScreen_MouseDown(Button As Integer, Shift As Integer, x As Long, y As Long)
+        Call mEdit.MouseDown(Button, Shift, x, y)
+    End Sub
+    
+    Private Sub ucScreen_MouseMove(Button As Integer, Shift As Integer, x As Long, y As Long)
+        Call mEdit.MouseMove(Button, Shift, x, y)
+    End Sub
+    
+    Private Sub ucScroll_Change()
+        
+        Call mEdit.DoScrollTo(ucScroll.Value)
+        
+        txtScreenStart.Text = ucScroll.Value
+        lblScreenOriginVal.Caption = ucScroll.Value
+    End Sub
+    
+    Private Sub ucScroll_Scroll()
+        Call ucScroll_Change
+    End Sub
+    
+    '========================================================================================
+    ' Object/terrain/steel selection/scroll
+    '========================================================================================
+    
+    Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+        
+        Select Case KeyCode
+            Case vbKeyReturn
+                Call mnuContextSelection_Click(0)
+            Case vbKeyDelete
+                Call mnuContextSelection_Click(1)
+            Case vbKeyPageUp, vbKeyA
+                Call mEdit.SelectionFindNextOver
+            Case vbKeyPageDown, vbKeyZ
+                Call mEdit.SelectionFindNextUnder
+        End Select
+    End Sub
+    
+    Private Sub ucScreen_KeyDown(KeyCode As Integer, Shift As Integer)
+        
+        Select Case KeyCode
+            Case vbKeyUp
+                Call cmdUp_Click
+            Case vbKeyDown
+                Call cmdDown_Click
+            Case vbKeyLeft
+                Call cmdLeft_Click
+            Case vbKeyRight
+                Call cmdRight_Click
+            Case vbKeyEscape
+                Call mEdit.RestoreSelectionPosition
+        End Select
+    End Sub
+    
+    Private Sub cmdUp_Click()
+        Call mEdit.SelectionMove(0, -1)
+    End Sub
+    
+    Private Sub cmdDown_Click()
+        Call mEdit.SelectionMove(0, 1)
+    End Sub
+    
+    Private Sub cmdLeft_Click()
+        Call mEdit.SelectionMove(-1, 0)
+    End Sub
+    
+    Private Sub cmdRight_Click()
+        Call mEdit.SelectionMove(1, 0)
+    End Sub
+    
+    '========================================================================================
+    ' Selection context menu
+    '========================================================================================
+    
+    Private Sub mnuContextSelection_Click(Index As Integer)
+        
+        Select Case Index
+            
+            Case 0 '-- Duplicate
+                
+                If (mEdit.SelectionDuplicate = False) Then
+                    Call VBA.MsgBox( _
+                         "Unable to duplicate current selection.", _
+                         vbExclamation _
+                         )
+                End If
+                
+            Case 1  '-- Remove
+                
+                If (mEdit.SelectionExists) Then
+                    If (chkConfirmRemoving) Then
+                        If (VBA.MsgBox( _
+                            "Remove current selection?", _
+                            vbInformation Or vbYesNo _
+                            ) = vbYes _
+                            ) Then
+                            Call mEdit.SelectionRemove
+                        End If
+                      Else
+                        Call mEdit.SelectionRemove
+                    End If
+                End If
+            
+            Case 3  '-- Bring to top
+                
+                Call mEdit.SelectionBringToTop
+            
+            Case 4  '-- Bring to bottom
+                
+                Call mEdit.SelectionBringToBottom
+                
+            Case 6  '-- Not overlap
+                    
+                mnuContextSelection(6).Checked = Not mnuContextSelection(6).Checked
+                chkNotOverlap.Value = -mnuContextSelection(6).Checked
+            
+            Case 7  '-- On terrain
+            
+                mnuContextSelection(7).Checked = Not mnuContextSelection(7).Checked
+                chkOnTerrain.Value = -mnuContextSelection(7).Checked
+            
+            Case 9  '-- Not overlap
+            
+                mnuContextSelection(9).Checked = Not mnuContextSelection(9).Checked
+                chkNotOverlap.Value = -mnuContextSelection(9).Checked
+            
+            Case 10 '-- Black
+            
+                mnuContextSelection(10).Checked = Not mnuContextSelection(10).Checked
+                chkBlack.Value = -mnuContextSelection(10).Checked
+            
+            Case 11  '-- Upside down
+            
+                mnuContextSelection(11).Checked = Not mnuContextSelection(11).Checked
+                chkUpsideDown.Value = -mnuContextSelection(11).Checked
+        End Select
+    End Sub
+    
+    '========================================================================================
+    ' Options tabs
+    '========================================================================================
+    
+    ' Private Sub tbOptions_Click()
+        
+    '   Dim i As Integer
+    
+    '     For i = 1 To fraOptions.Count
+    '         fraOptions(i).Visible = False
+    '     Next i
+    '     fraOptions(tbOptions.SelectedItem.Index).Visible = True
+        
+    '     Select Case tbOptions.SelectedItem.Index
+    '         Case 1
+    '             Call txtTitle.SetFocus
+    '         Case 2
+    '             Call cbObject.SetFocus
+    '         Case 3
+    '             Call cbTerrainPiece.SetFocus
+    '         Case 4
+    '             Call txtSteelAreaWidth.SetFocus
+    '         Case 5
+    '             Call cbGraphicSet.SetFocus
+    '     End Select
+    ' End Sub
+    
+    '========================================================================================
+    ' Level features
+    '========================================================================================
+    
+    Private Sub txtTitle_Change()
+        uLEVEL.Title = txtTitle.Text
+    End Sub
+    
+    Private Sub txtLemsToLetOut_Change()
+        uLEVEL.LemsToLetOut = Val(txtLemsToLetOut.Text)
+    End Sub
+    
+    Private Sub txtLemsToBeSaved_Change()
+        uLEVEL.LemsToBeSaved = Val(txtLemsToBeSaved.Text)
+    End Sub
+    
+    Private Sub txtReleaseRate_Change()
+        uLEVEL.ReleaseRate = Val(txtReleaseRate.Text)
+    End Sub
+    
+    Private Sub txtPlayingTime_Change()
+        uLEVEL.PlayingTime = Val(txtPlayingTime.Text)
+    End Sub
+    
+    Private Sub txtScreenStart_Change()
+        uLEVEL.ScreenStart = Val(txtScreenStart.Text)
+    End Sub
+    
+    Private Sub txtSkill_Change(Index As Integer)
+        
+      Dim nVal As Integer
+      
+        nVal = Val(txtSkill(Index).Text)
+        
+        With uLEVEL
+            Select Case Index
+                Case 0: .MaxClimbers = nVal
+                Case 1: .MaxFloaters = nVal
+                Case 2: .MaxBombers = nVal
+                Case 3: .MaxBlockers = nVal
+                Case 4: .MaxBuilders = nVal
+                Case 5: .MaxBashers = nVal
+                Case 6: .MaxMiners = nVal
+                Case 7: .MaxDiggers = nVal
+            End Select
+        End With
+    End Sub
+    
+    '========================================================================================
+    ' Object
+    '========================================================================================
+    
+    Private Sub cbObject_Click()
+        
+        With ucObjectPreview
+    
+            Call .DIB.Create( _
+                 uOBJGFX(cbObject.ListIndex).Width, _
+                 uOBJGFX(cbObject.ListIndex).Height _
+                 )
+            Call .DIB.LoadBlt( _
+                 uOBJGFX(cbObject.ListIndex).DIB.hDC, _
+                 0, 0 _
+                 )
+            Call .Resize
+            Call .Refresh
+    
+            '-- Info
+            lblObjectWidthVal.Caption = .DIB.Width
+            lblObjectHeightVal.Caption = .DIB.Height
+            
+            Select Case cbObject.ListIndex
+                Case Is = 0
+                    lblObjectDescription.Caption = "Exit"
+                Case Is = 1
+                    lblObjectDescription.Caption = "Start"
+                Case Else
+                    Select Case uOBJGFX(cbObject.ListIndex).TriggerEffect
+                        Case Is = 2
+                            lblObjectDescription.Caption = "One-way pointing left"
+                        Case Is = 3
+                            lblObjectDescription.Caption = "One-way pointing right"
+                        Case Is = 32
+                            lblObjectDescription.Caption = "Trap"
+                        Case Is = 48
+                            lblObjectDescription.Caption = "Mortal liquid/ground"
+                        Case Is = 64
+                            lblObjectDescription.Caption = "Mortal fire/gadget"
+                        Case Else
+                            lblObjectDescription.Caption = vbNullString
+                    End Select
+            End Select
+        End With
+    
+        tmrAnimation.Tag = 0
+    End Sub
+    
+    Private Sub cmdObjectAdd_Click()
+        If (mEdit.AddObject( _
+            cbObject.ListIndex _
+            ) = False _
+            ) Then
+            Call VBA.MsgBox( _
+                 "Error adding object.", _
+                 vbExclamation _
+                 )
+        End If
+    End Sub
+    
+    Private Sub tmrAnimation_Timer()
+        
+      Static nListIndexOld As Integer
+    
+        If (cbObject.ListIndex <> -1) Then
+    
+            If (nListIndexOld <> cbObject.ListIndex) Then
+                nListIndexOld = cbObject.ListIndex
+                Call cbObject_Click
+                Exit Sub
+            End If
+    
+            tmrAnimation.Tag = tmrAnimation.Tag + 1
+            If (tmrAnimation.Tag = uOBJGFX(cbObject.ListIndex).EndAnimationFrame) Then
+                tmrAnimation.Tag = 0
+            End If
+            With ucObjectPreview
+                Call .DIB.LoadBlt( _
+                     uOBJGFX(cbObject.ListIndex).DIB.hDC, _
+                     0, tmrAnimation.Tag * .DIB.Height, .DIB.Width, .DIB.Height _
+                     )
+                     
+                Call .Refresh
+            End With
+        End If
+    End Sub
+    
+    '========================================================================================
+    ' Terrain
+    '========================================================================================
+    
+    Private Sub cbTerrainPiece_Click()
+    
+        With ucTerrainPiecePreview
+            
+            Call .DIB.Create( _
+                 uTERGFX(cbTerrainPiece.ListIndex).Width, _
+                 uTERGFX(cbTerrainPiece.ListIndex).Height _
+                 )
+            Call .DIB.LoadBlt( _
+                 uTERGFX(cbTerrainPiece.ListIndex).DIB.hDC, _
+                 0, 0 _
+                 )
+            Call .Resize
+            Call .Refresh
+            
+            '-- Info
+            lblTerrainPieceWidthVal.Caption = .DIB.Width
+            lblTerrainPieceHeightVal.Caption = .DIB.Height
+            lblTerrainPieceDescription.Caption = vbNullString
+        End With
+    End Sub
+    
+    Private Sub cmdTerrainPieceAdd_Click()
+        If (mEdit.AddTerrainPiece( _
+            cbTerrainPiece.ListIndex _
+            ) = False _
+            ) Then
+            Call VBA.MsgBox( _
+                 "Error adding terrain piece.", _
+                 vbExclamation _
+                 )
+        End If
+    End Sub
+    
+    '========================================================================================
+    ' Steel
+    '========================================================================================
+    
+    Private Sub txtSteelAreaWidth_Change()
+        Call mEdit.SteelAreaSetWidth(Val(txtSteelAreaWidth.Text))
+    End Sub
+    
+    Private Sub txtSteelAreaHeight_Change()
+        Call mEdit.SteelAreaSetHeight(Val(txtSteelAreaHeight.Text))
+    End Sub
+    
+    Private Sub cmdSteelAreaAdd_Click()
+        If (mEdit.AddSteelArea( _
+            Val(txtSteelAreaWidth.Text), _
+            Val(txtSteelAreaHeight.Text) _
+            ) = False _
+            ) Then
+            Call VBA.MsgBox( _
+                 "Error adding steel area.", _
+                 vbExclamation _
+                 )
+        End If
+    End Sub
+    
+    '========================================================================================
+    ' Preferences
+    '========================================================================================
+    
+    Private Sub cbGraphicSet_Click()
+        If (cbGraphicSet.Tag = 0) Then
+            Call mMain.SetGraphicSet(cbGraphicSet.ListIndex)
+            Call mEdit.ResetSelection
+            Call mEdit.DoFrame
+        End If
+    End Sub
+    
+    Private Sub chkShowObjects_Click()
+        mEdit.ShowObjects = CBool(chkShowObjects)
+    End Sub
+    
+    Private Sub chkShowTerrain_Click()
+        mEdit.ShowTerrain = CBool(chkShowTerrain)
+    End Sub
+    
+    Private Sub chkShowSteel_Click()
+        mEdit.ShowSteel = CBool(chkShowSteel)
+    End Sub
+    
+    Private Sub chkShowTriggerAreas_Click()
+        mEdit.ShowTriggerAreas = CBool(chkShowTriggerAreas)
+    End Sub
+    
+    Private Sub chkHighlightSelected_Click()
+        mEdit.HighlightSelected = CBool(chkHighlightSelected)
+    End Sub
+    
+    Private Sub chkShowBlackPieces_Click()
+        mEdit.ShowBlackPieces = CBool(chkShowBlackPieces)
+    End Sub
+    
+    Private Sub chkShowSelectionBox_Click()
+        mEdit.ShowSelectionBox = CBool(chkShowSelectionBox)
+    End Sub
+    
+    Private Sub optSelectionPreference_Click(Index As Integer)
+        mEdit.SelectionPreference = Index
+    End Sub
+    
+    '========================================================================================
+    ' Selection Z-Order special and flags
+    '========================================================================================
+    
+    Private Sub cmdZOrderUp_Click()
+        Call mEdit.SelectionZOrderUp
+    End Sub
+    
+    Private Sub cmdZOrderDown_Click()
+        Call mEdit.SelectionZOrderDown
+    End Sub
+    
+    Private Sub chkNotOverlap_Click()
+        Call mEdit.SetNotOverlap(chkNotOverlap)
+    End Sub
+    
+    Private Sub chkOnTerrain_Click()
+        Call mEdit.ObjectSetOnTerrain(chkOnTerrain)
+    End Sub
+    
+    Private Sub chkBlack_Click()
+        Call mEdit.TerrainPieceSetBlack(chkBlack)
+    End Sub
+    
+    Private Sub chkUpsideDown_Click()
+        Call mEdit.TerrainPieceSetUpsideDown(chkUpsideDown)
+    End Sub
+    
+    '========================================================================================
+    ' Private
+    '========================================================================================
+    
+    Private Sub pvInitializeGraphicSet()
+      
+      Dim i As Long
+        
+        With Me
+        
+            '-- Fill combo
+            For i = 0 To MAX_GRAPHICSET
+                Call .cbGraphicSet.AddItem("# " & i)
+            Next i
+            
+            '-- Select first set
+            .cbGraphicSet.ListIndex = 0
+        End With
+    End Sub
+    
+    Private Sub pvUpdateAppCaption()
+        
+        Me.Caption = "Lems64 Level Editor - ["
+        Me.Caption = Me.Caption & Mid$(sLEVELPATH, InStrRev(sLEVELPATH, "\") + 1, Len(sLEVELPATH) - InStrRev(sLEVELPATH, "\"))
+        Me.Caption = Me.Caption & "]"
+    End Sub
+        
+    Private Sub pvUpdateLevelPath()
+    
+        txtStatus.Text = mMisc.CompactPath(Me.hDC, sLEVELPATH, txtStatus.Width)
+    End Sub
+    
+    Private Function Subclass2(hWnd As LongPtr, lpFN As LongPtr, Optional uId As LongPtr = 0&, Optional dwRefData As LongPtr = 0&) As Boolean
+    If uId = 0 Then uId = hWnd
+        Subclass2 = SetWindowSubclass(hWnd, lpFN, uId, dwRefData):      Debug.Assert Subclass2
+    End Function
+
+    Private Function UnSubclass2(hWnd As LongPtr, ByVal lpFN As LongPtr, pid As LongPtr) As Boolean
+        UnSubclass2 = RemoveWindowSubclass(hWnd, lpFN, pid)
+    End Function
+
+    Private Function TabWndProc(ByVal lng_hWnd As LongPtr, ByVal uMsg As Long, ByVal wParam As LongPtr, ByVal lParam As LongPtr, ByVal uIdSubclass As LongPtr, ByVal dwRefData As LongPtr) As LongPtr
+
+    Select Case uMsg
+    	
+        Case WM_NOTIFYFORMAT
+            Return NFR_UNICODE
+            
+        Case WM_NOTIFY
+             Dim NM As NMHDR
+             CopyMemory NM, ByVal lParam, LenB(NM)
+             Select Case NM.Code
+                Case TCN_SELCHANGE
+                    Dim idxSel As Long = CLng(SendMessage(hTab, TCM_GETCURSEL, 0, ByVal 0))
+                    idxSel += 1
+                    Debug.Print "TCN_SELCHANGE idx=" & idxSel
+                    Dim i As Integer
+                    
+                    For i = 1 To fraOptions.Count
+                        fraOptions(i).Visible = False
+                    Next i
+                    fraOptions(idxSel).Visible = True
+                    
+                    Select Case idxSel
+                        Case 1
+                            Call txtTitle.SetFocus
+                        Case 2
+                            Call cbObject.SetFocus
+                        Case 3
+                            Call cbTerrainPiece.SetFocus
+                        Case 4
+                            Call txtSteelAreaWidth.SetFocus
+                        Case 5
+                            Call cbGraphicSet.SetFocus
+                    End Select
+            End Select
+        Case WM_DESTROY
+            Call UnSubclass2(lng_hWnd, AddressOf TabWndProc, uIdSubclass)
+    End Select
+    
+    Return DefSubclassProc(lng_hWnd, uMsg, wParam, lParam)
+    End Function
+ 
+ 
+End Class
