@@ -26,6 +26,10 @@ Lems_x64_N_XL.twinproj - Same as above except main playing screen modified to be
 
 There's also Lems_ImptWorking.twinproj, which is the immediate import of the working VB6 version, without further modification (32bit only)
 
+Lems64 XL:
+
+![image](https://github.com/fafalone/Lems64/assets/7834493/f5570f16-3412-4a25-a50a-fd9eec87845b)
+
 ## Requirements
 
 **Requires [twinBASIC Beta 305](https://github.com/twinbasic/twinbasic/releases) or newer** to run from IDE and build without bugs.
@@ -42,10 +46,15 @@ Download the [current Release version](https://github.com/fafalone/Lems64/releas
 
 ## Level editor
 
-I have not yet completed a 64bit port of the level editor, as it uses more complex common controls without existing x64 ports besides the impractical option of installing MS Office 64bit and extracting the ocx from it's virtual file system. For the time being, you can use the original VB6 level editor. It's included in the VB6 folder of the repository, and an exe build is included in the Release versions.
+![image](https://github.com/fafalone/Lems64/assets/7834493/bd772b92-cf68-40f8-a321-2fd2c78a2ea7)
+
+
+The level editor is now complete and included in the repo and latest release. I replaced the comctllib tab control with a barebones pure-API version, and just used a TextBox as statusbar since it only displays the file path anyway. 
 
 ---
 
 Questions, comments, bugs? Don't hesitate to create an issue!
 
 **Enjoy!**
+
+
