@@ -6,6 +6,8 @@
 
 **Current status: twinBASIC Beta 305 fixes the few remaining minor bugs, so Lems/Lems64 is now working near perfectly!**
 
+**Update (06 June 2023, v1.5.13.7):** Added a volume control slider that sets the per-app volume, so you don't need to change the system volume to lower it. Also now allow arrow keys to scroll view, and A is now scroll left, Z or D for right. This is available only as a Beta source file in Lems64MS.twinproj; I have a few more things I want to do before another major release. 
+
 **LemsEdit update (NEW!):** The repo now has a Release Candidate test version of the Lems level editor. The slider has been replaced with a tB slider, the statusbar with a textbox, and the tab control with a minimal direct API implementation. So no outside dependencies.
 
 **Update (20 May 2023, v1.5.13.6):** Mousewheel fix for 64bit builds, updated URL in about screen since PSC is offline anyway.
