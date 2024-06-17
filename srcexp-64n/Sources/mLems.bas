@@ -40,7 +40,8 @@ Private Type SAFEARRAY2D
     Bounds(1)  As SAFEARRAYBOUND
 End Type
 
-Private Declare PtrSafe Function VarPtrArray Lib "msvbvm60" Alias "VarPtr" (Ptr() As Any) As Long
+[IgnoreWarnings(TB0015)]
+Private Declare PtrSafe Function VarPtrArray Lib "msvbvm60" Alias "VarPtr" (Ptr() As Any) As LongPtr
 Private Declare PtrSafe Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (lpDst As Any, lpSrc As Any, ByVal Length As Long)
 
 '-- Lems:
